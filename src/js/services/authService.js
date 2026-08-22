@@ -148,4 +148,11 @@ export class AuthService {
         performanceBonus: 4166.67,
         lta: 4166.67,
         fixedAllowance: 8333.33,
-        pfEmployee: 6000,
+        pfEmployee: 6000,
+        pfEmployer: 6000,
+        professionalTax: 200
+      }
+    };
+
+    const updatedCompanies = [
+      newCompany,
