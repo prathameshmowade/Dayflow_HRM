@@ -69,4 +69,22 @@ export class ChangePasswordModalComponent {
                     autocomplete="new-password"
                   />
                   <button type="button" class="password-toggle-btn" data-target="cp-new-pass" title="Toggle visibility" aria-label="Show or hide password">
-                    <span class="eye-icon">&#128065;</span>
+                    <span class="eye-icon">&#128065;</span>
+                  </button>
+                </div>
+                <!-- Password Strength Meter -->
+                <div id="cp-strength-meter" style="margin-top: 0.4rem; display: none;">
+                  <div style="display: flex; gap: 4px; height: 4px; margin-bottom: 0.35rem;">
+                    <div id="strength-bar-1" style="flex: 1; height: 100%; border-radius: 2px; background: #e2e8f0; transition: background 0.3s;"></div>
+                    <div id="strength-bar-2" style="flex: 1; height: 100%; border-radius: 2px; background: #e2e8f0; transition: background 0.3s;"></div>
+                    <div id="strength-bar-3" style="flex: 1; height: 100%; border-radius: 2px; background: #e2e8f0; transition: background 0.3s;"></div>
+                    <div id="strength-bar-4" style="flex: 1; height: 100%; border-radius: 2px; background: #e2e8f0; transition: background 0.3s;"></div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted);">
+                    <span>Strength: <strong id="strength-label" style="color: var(--text-secondary);">Weak</strong></span>
+                    <span id="strength-rule-hint">Min. 6 chars</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Confirm New Password -->
