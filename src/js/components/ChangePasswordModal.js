@@ -232,4 +232,22 @@ export class ChangePasswordModalComponent {
           }
         });
 
-        if (strengthLabel) {
+        if (strengthLabel) {
+          strengthLabel.textContent = labels[score - 1] || 'Weak';
+          strengthLabel.style.color = colors[score - 1] || '#ef4444';
+        }
+
+        checkPasswordMatch();
+      });
+    }
+
+    function checkPasswordMatch() {
+      if (!confirmPassInput || !matchStatus) return;
+      const newPass = newPassInput?.value || '';
+      const confirmPass = confirmPassInput.value || '';
+
+      if (!confirmPass) {
+        matchStatus.style.display = 'none';
+        return;
+      }
+
