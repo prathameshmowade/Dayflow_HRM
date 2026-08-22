@@ -178,4 +178,11 @@ export class AuthService {
     if (!user) {
       showToast('User not found.', 'error');
       return { success: false, message: 'User not found.' };
-    }
+    }
+
+    const currentActualPassword = user.password || generateDefaultPassword(user.loginId);
+    if (currentPassword !== currentActualPassword) {
+      showToast('Current password does not match.', 'error');
+      return { success: false, message: 'Current password does not match.' };
+    }
+
