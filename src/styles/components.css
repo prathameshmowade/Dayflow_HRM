@@ -370,4 +370,42 @@
 .toast-close {
   margin-left: auto;
   font-size: 1.1rem;
-  color: var(--text-muted);
+  color: var(--text-muted);
+}
+.toast-close:hover { color: var(--text-primary); }
+
+/* ==========================================================================
+   HR Interview Blurred Background & Centered Auth Layout
+   ========================================================================== */
+.auth-page-wrapper {
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  z-index: 1000;
+}
+
+/* Background Image Layer with Blur */
+.auth-image-bg {
+  position: fixed;
+  inset: 0;
+  background: url('../assets/hr_interview_bg.jpg') center center / cover no-repeat;
+  filter: blur(12px) brightness(0.62) saturate(1.15);
+  transform: scale(1.08); /* prevents white blur edges */
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Subtle Gradient Overlay over Image */
+.auth-gradient-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(113, 75, 103, 0.35) 0%, rgba(15, 23, 42, 0.75) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Centered Elevated Auth Card */
