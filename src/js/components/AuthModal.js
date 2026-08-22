@@ -64,4 +64,37 @@ export class AuthModalComponent {
         </div>
 
         <!-- Quick Demo Profiles Pill Container -->
-        <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px dashed var(--border-color); text-align: center;">
+        <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px dashed var(--border-color); text-align: center;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">
+            ⚡ Quick Demo Accounts
+          </div>
+          <div class="flex gap-2 justify-center" style="flex-wrap: wrap;">
+            <button type="button" class="btn btn-outline btn-sm demo-autofill" data-login="OIPRMO20220001" data-pass="OIPRMO20220001@2026">
+              👑 Prathamesh (Admin)
+            </button>
+            <button type="button" class="btn btn-outline btn-sm demo-autofill" data-login="OIYAKA20230002" data-pass="OIYAKA20230002@2026">
+              💻 Yash (Employee)
+            </button>
+            <button type="button" class="btn btn-outline btn-sm demo-autofill" data-login="OIDHBH20230003" data-pass="OIDHBH20230003@2026">
+              📊 Dhanshree (Employee)
+            </button>
+            <button type="button" class="btn btn-outline btn-sm demo-autofill" data-login="OINEMU20240004" data-pass="OINEMU20240004@2026">
+              📋 Neha (Employee)
+            </button>
+          </div>
+        </div>
+      </form>
+    `;
+  }
+
+  static renderSignupForm() {
+    return `
+      <form id="signup-form">
+        <div class="form-group">
+          <label class="form-label" for="signup-company">Company Name</label>
+          <input type="text" id="signup-company" class="form-input" placeholder="e.g. Odoo India" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signup-name">Admin Full Name</label>
+          <input type="text" id="signup-name" class="form-input" placeholder="e.g. John Doe" required />
