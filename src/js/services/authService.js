@@ -133,4 +133,11 @@ export class AuthService {
         bankName: 'Primary Bank',
         accountNumber: '100000000001',
         ifscCode: 'BANK0000001',
-        panNo: 'ADMIN1234Z',
+        panNo: 'ADMIN1234Z',
+        uanNo: '100000000001',
+        empCode: `${companyCode}-001`
+      },
+      salary: {
+        monthWage: 100000,
+        yearlyWage: 1200000,
+        workingDaysPerWeek: 5,
