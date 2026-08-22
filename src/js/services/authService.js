@@ -42,4 +42,12 @@ export class AuthService {
           };
     }
 
-    // 4. Resolve exact company associated with this employee
+    // 4. Resolve exact company associated with this employee
+    const userCompanyCode = user.companyCode || user.loginId?.substring(0, 2).toUpperCase() || 'OI';
+    const companies = state.companies || [];
+    let matchedCompany = companies.find(c => c.code === userCompanyCode);
+    if (!matchedCompany) {
+      if (userCompanyCode === 'OI') {
+        matchedCompany = {
+          name: 'Odoo India',
+          code: 'OI',
