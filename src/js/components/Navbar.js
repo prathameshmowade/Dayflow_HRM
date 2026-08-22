@@ -36,4 +36,17 @@ export class NavbarComponent {
                 Payroll
               </button>
             </nav>
-          </div>
+          </div>
+
+          <div class="nav-actions">
+            <!-- Header Systray: Live Check In / Check Out Clock Widget -->
+            <div class="systray-clock-widget">
+              <div class="systray-status-indicator">
+                <span class="status-dot ${isCheckedIn ? 'dot-green' : 'dot-red'}"></span>
+                <span style="font-size: 0.8rem; color: var(--text-secondary);">
+                  ${isCheckedIn ? `Since ${checkInState.checkInTime || '09:30 AM'}` : 'Clocked Out'}
+                </span>
+              </div>
+              <button id="systray-clock-btn" class="btn btn-sm btn-clock ${isCheckedIn ? 'btn-clock-out' : 'btn-clock-in'}">
+                ${isCheckedIn ? 'Check Out &rarr;' : 'Check IN &rarr;'}
+              </button>
