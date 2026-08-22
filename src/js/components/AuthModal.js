@@ -97,4 +97,37 @@ export class AuthModalComponent {
 
         <div class="form-group">
           <label class="form-label" for="signup-name">Admin Full Name</label>
-          <input type="text" id="signup-name" class="form-input" placeholder="e.g. John Doe" required />
+          <input type="text" id="signup-name" class="form-input" placeholder="e.g. John Doe" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signup-email">Work Email</label>
+          <input type="email" id="signup-email" class="form-input" placeholder="admin@company.com" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signup-phone">Phone Number</label>
+          <input type="tel" id="signup-phone" class="form-input" placeholder="+91 98765 43210" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signup-password">Password</label>
+          <input type="password" id="signup-password" class="form-input" placeholder="••••••••" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signup-confirm-password">Confirm Password</label>
+          <input type="password" id="signup-confirm-password" class="form-input" placeholder="••••••••" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full" style="padding: 0.75rem; font-size: 1rem; margin-top: 0.5rem;">
+          Sign Up & Initialize Company &rarr;
+        </button>
+
+        <div style="text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-secondary);">
+          Already have an account? 
+          <a href="#" id="toggle-to-signin" style="font-weight: 700; color: var(--primary);">Sign In</a>
+        </div>
+      </form>
+    `;
+  }
