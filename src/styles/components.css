@@ -72,4 +72,41 @@
   padding: 0.5rem;
   border-radius: var(--radius-sm);
   display: inline-flex;
-  align-items: center;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.badge-present { background: var(--status-present-bg); color: var(--status-present); }
+.badge-leave { background: var(--status-leave-bg); color: var(--status-leave); }
+.badge-absent { background: var(--status-absent-bg); color: var(--status-absent); }
+.badge-offline { background: var(--status-offline-bg); color: var(--status-offline); }
+.badge-pending { background: #fef3c7; color: #d97706; }
+.badge-approved { background: #dcfce7; color: #16a34a; }
+.badge-rejected { background: #fee2e2; color: #dc2626; }
+
+/* Status Dot */
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.status-dot.dot-green { background-color: var(--status-present); box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
+.status-dot.dot-yellow { background-color: var(--status-absent); box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2); }
+.status-dot.dot-red { background-color: var(--status-offline); box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2); }
+.status-dot.dot-blue { background-color: var(--status-leave); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
+
