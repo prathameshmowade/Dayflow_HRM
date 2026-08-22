@@ -10,4 +10,17 @@ export class NavbarComponent {
 
     if (!currentUser) return '';
 
-    const isAdmin = currentUser.role === 'admin';
+    const isAdmin = currentUser.role === 'admin';
+    const isCheckedIn = checkInState.isCheckedIn;
+
+    return `
+      <header class="navbar">
+        <div class="nav-container">
+          <div class="flex items-center">
+            <a href="#employees" class="nav-brand" data-nav="employees">
+              <span class="brand-logo-badge">${company.logoText || 'dayflow'}</span>
+              <span>Dayflow <span style="font-weight: 500; font-size: 0.85rem; color: var(--text-secondary); opacity: 0.85;">&bull; ${company.name || 'Enterprise'}</span></span>
+            </a>
+
+            <nav class="nav-links">
+              <button class="nav-item ${activeView === 'employees' ? 'active' : ''}" data-nav="employees">
