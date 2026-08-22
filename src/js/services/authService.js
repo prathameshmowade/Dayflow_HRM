@@ -87,4 +87,12 @@ export class AuthService {
 
     const companyCode = (companyName || 'DF').replace(/[^a-zA-Z]/g, '').substring(0, 2).toUpperCase();
     const loginId = generateEmployeeId(companyName, firstName, lastName, currentYear, serial);
-
+
+    const newCompany = {
+      name: companyName,
+      code: companyCode,
+      logoText: 'dayflow',
+      logoUrl: logoUrl || '',
+      tagline: 'Human Resource Management System',
+      currency: 'INR'
+    };
