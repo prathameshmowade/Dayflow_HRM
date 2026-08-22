@@ -245,4 +245,11 @@ export class AuthService {
 
     store.setState({
       company: matchedCompany || state.company,
-      currentUser: targetUser,
+      currentUser: targetUser,
+      selectedEmployeeId: targetUser.id
+    }, 'auth_switch_user');
+
+    showToast(`Switched active profile to ${targetUser.name} (${targetUser.role.toUpperCase()})`, 'info');
+  }
+}
+
