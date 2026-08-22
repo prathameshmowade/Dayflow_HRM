@@ -140,4 +140,12 @@ export class AuthService {
       salary: {
         monthWage: 100000,
         yearlyWage: 1200000,
-        workingDaysPerWeek: 5,
+        workingDaysPerWeek: 5,
+        breakTimeHrs: 1,
+        basicSalary: 50000,
+        hra: 25000,
+        standardAllowance: 8333.33,
+        performanceBonus: 4166.67,
+        lta: 4166.67,
+        fixedAllowance: 8333.33,
+        pfEmployee: 6000,
