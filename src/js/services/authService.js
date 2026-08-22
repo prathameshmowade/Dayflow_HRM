@@ -50,4 +50,11 @@ export class AuthService {
       if (userCompanyCode === 'OI') {
         matchedCompany = {
           name: 'Odoo India',
-          code: 'OI',
+          code: 'OI',
+          logoText: 'dayflow',
+          tagline: 'Human Resource Management System',
+          currency: 'INR'
+        };
+      } else {
+        matchedCompany = {
+          name: user.companyName || `${userCompanyCode} Enterprise`,
