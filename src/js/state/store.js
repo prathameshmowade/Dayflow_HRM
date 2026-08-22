@@ -419,4 +419,63 @@ class Store {
           days: 1,
           reason: 'Family event and personal commitments',
           status: 'approved',
-          adminComment: 'Approved by HR Lead'
+          adminComment: 'Approved by HR Lead'
+        },
+        {
+          id: 'leave_2',
+          employeeId: 'emp_5',
+          employeeName: 'Rahul Sharma',
+          type: 'Sick Leave',
+          startDate: '2026-08-25',
+          endDate: '2026-08-26',
+          days: 2,
+          reason: 'Medical recovery & health checkup',
+          status: 'pending',
+          adminComment: ''
+        }
+      ],
+      checkInState: {
+        isCheckedIn: true,
+        checkInTime: '09:30 AM',
+        timestamp: Date.now()
+      }
+    };
+  }
+
+  saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state));
+    } catch (e) {
+      console.error('Failed to save state:', e);
+    }
+  }
+
+  getState() {
+    return this.state;
+  }
+
+  setState(partialState, eventName = 'state_change') {
+    this.state = { ...this.state, ...partialState };
+    this.saveState();
+    this.emit(eventName, this.state);
+  }
+
+  subscribe(eventName, callback) {
+    if (!this.subscribers.has(eventName)) {
+      this.subscribers.set(eventName, new Set());
+    }
+    this.subscribers.get(eventName).add(callback);
+    return () => this.subscribers.get(eventName).delete(callback);
+  }
+
+  emit(eventName, data) {
+    if (this.subscribers.has(eventName)) {
+      this.subscribers.get(eventName).forEach(cb => cb(data));
+    }
+    if (this.subscribers.has('*')) {
+      this.subscribers.get('*').forEach(cb => cb({ event: eventName, data }));
+    }
+  }
+}
+
+export const store = new Store();
