@@ -1,5 +1,8 @@
 # Local & Plan Files
 PROJECT_PLAN.md
+VIDEO_SCRIPT.md
+VIDEO_SCRIPT.docx
+*.docx
 scratch/
 .system_generated/
 
