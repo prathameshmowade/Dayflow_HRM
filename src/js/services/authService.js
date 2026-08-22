@@ -95,4 +95,11 @@ export class AuthService {
       logoUrl: logoUrl || '',
       tagline: 'Human Resource Management System',
       currency: 'INR'
-    };
+    };
+
+    const adminUser = {
+      id: `emp_${Date.now()}`,
+      loginId,
+      companyCode,
+      companyName,
+      firstName,
