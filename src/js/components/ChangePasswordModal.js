@@ -123,4 +123,22 @@ export class ChangePasswordModalComponent {
   static open() {
     const modal = document.getElementById('change-password-modal');
     if (!modal) return;
+
+    // Reset fields and alerts
+    const form = document.getElementById('change-password-form');
+    if (form) form.reset();
+
+    const alertBox = document.getElementById('change-password-alert');
+    if (alertBox) alertBox.style.display = 'none';
+
+    const matchStatus = document.getElementById('cp-match-status');
+    if (matchStatus) matchStatus.style.display = 'none';
+
+    const strengthMeter = document.getElementById('cp-strength-meter');
+    if (strengthMeter) strengthMeter.style.display = 'none';
+
+    // Reset password inputs back to type="password"
+    modal.querySelectorAll('.password-field').forEach(input => {
+      input.type = 'password';
+    });
 
