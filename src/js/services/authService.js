@@ -185,4 +185,12 @@ export class AuthService {
       showToast('Current password does not match.', 'error');
       return { success: false, message: 'Current password does not match.' };
     }
-
+
+    if (!newPassword || newPassword.length < 6) {
+      showToast('New password must be at least 6 characters long.', 'error');
+      return { success: false, message: 'New password must be at least 6 characters long.' };
+    }
+
+    if (newPassword === currentActualPassword) {
+      showToast('New password cannot be identical to your current password.', 'warning');
+      return { success: false, message: 'New password cannot be identical to current password.' };
