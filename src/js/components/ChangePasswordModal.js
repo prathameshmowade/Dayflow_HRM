@@ -159,4 +159,23 @@ export class ChangePasswordModalComponent {
   static attachEvents() {
     const modal = document.getElementById('change-password-modal');
     if (!modal) return;
-
+
+    // Close buttons handler (Close icon and Cancel button)
+    modal.querySelectorAll('.modal-close-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.close();
+      });
+    });
+
+    // Close when clicking directly on backdrop
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        this.close();
+      }
+    });
+
+    // Password visibility toggle buttons
+    modal.querySelectorAll('.password-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
