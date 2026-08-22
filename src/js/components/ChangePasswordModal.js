@@ -196,4 +196,22 @@ export class ChangePasswordModalComponent {
     });
 
     // Real-time strength calculator
-    const newPassInput = document.getElementById('cp-new-pass');
+    const newPassInput = document.getElementById('cp-new-pass');
+    const strengthMeter = document.getElementById('cp-strength-meter');
+    const strengthLabel = document.getElementById('strength-label');
+    const b1 = document.getElementById('strength-bar-1');
+    const b2 = document.getElementById('strength-bar-2');
+    const b3 = document.getElementById('strength-bar-3');
+    const b4 = document.getElementById('strength-bar-4');
+
+    const confirmPassInput = document.getElementById('cp-confirm-pass');
+    const matchStatus = document.getElementById('cp-match-status');
+
+    if (newPassInput) {
+      newPassInput.addEventListener('input', () => {
+        const val = newPassInput.value;
+        if (!val) {
+          if (strengthMeter) strengthMeter.style.display = 'none';
+          return;
+        }
+
