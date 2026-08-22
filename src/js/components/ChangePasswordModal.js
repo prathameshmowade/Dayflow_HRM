@@ -304,4 +304,21 @@ export class ChangePasswordModalComponent {
         if (newPass !== confirmPass) {
           showAlert('New passwords do not match. Please re-check.');
           return;
-        }
+        }
+
+        if (newPass === currentPass) {
+          showAlert('New password cannot be the same as your current password.');
+          return;
+        }
+
+        const result = AuthService.changePassword(currentUser.id, currentPass, newPass);
+        if (result.success) {
+          ChangePasswordModalComponent.close();
+          form.reset();
+        } else {
+          showAlert(result.message || 'Failed to update password. Please check your credentials.');
+        }
+      });
+    }
+  }
+}
