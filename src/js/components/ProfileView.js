@@ -2,6 +2,7 @@ import { store } from '../state/store.js';
 import { EmployeeService } from '../services/employeeService.js';
 import { SalaryService } from '../services/salaryService.js';
 import { formatCurrencyINR, formatDate } from '../utils/formatters.js';
+import { showToast } from '../utils/notifications.js';
 
 export class ProfileViewComponent {
   static activeTab = 'resume'; // 'resume' | 'private' | 'salary'
@@ -14,6 +15,7 @@ export class ProfileViewComponent {
 
     const isAdmin = currentUser && currentUser.role === 'admin';
     const isOwnProfile = currentUser && currentUser.id === employee.id;
+    const canEdit = isAdmin || isOwnProfile;
 
     const salary = employee.salary || SalaryService.calculateSalaryComponents(50000);
 
@@ -24,7 +26,7 @@ export class ProfileViewComponent {
             &larr; Back to Employees
           </button>
           <div style="font-size: 0.85rem; color: var(--text-muted);">
-            Mode: <strong>${isAdmin ? 'Admin Edit Mode' : (isOwnProfile ? 'Employee Self-Service' : 'View-Only Mode')}</strong>
+            Mode: <strong>${isAdmin ? 'Admin Full Access' : (isOwnProfile ? 'Employee Self-Service' : 'View-Only Mode')}</strong>
           </div>
         </div>
 
@@ -32,9 +34,9 @@ export class ProfileViewComponent {
           <!-- Profile Top Header Grid -->
           <div class="profile-header-grid">
             <div class="profile-avatar-container">
-              <img src="${employee.avatar}" alt="${employee.name}" class="profile-avatar-large" />
-              ${(isAdmin || isOwnProfile) ? `
-                <div class="profile-avatar-edit-badge" title="Change Avatar" id="btn-edit-avatar">&#9998;</div>
+              <img src="${employee.avatar}" alt="${employee.name}" class="profile-avatar-large" id="profile-img-display" />
+              ${canEdit ? `
+                <div class="profile-avatar-edit-badge" title="Change Avatar Image" id="btn-edit-avatar">&#9998;</div>
               ` : ''}
             </div>
 
@@ -42,7 +44,7 @@ export class ProfileViewComponent {
               <h2 class="profile-name-title">${employee.name}</h2>
               <div class="profile-meta-row">
                 <span class="profile-meta-label">Login ID:</span>
-                <span style="font-family: var(--font-mono); font-weight: 700; color: var(--primary);">${employee.loginId}</span>
+                <span style="font-family: var(--font-mono); font-weight: 700; color: var(--primary); font-size: 0.95rem;">${employee.loginId}</span>
               </div>
               <div class="profile-meta-row">
                 <span class="profile-meta-label">Email:</span>
@@ -96,8 +98,9 @@ export class ProfileViewComponent {
                 <div class="resume-section-box">
                   <div class="section-box-header">
                     <span class="section-box-title">&#128221; About</span>
+                    ${canEdit ? `<button class="btn btn-outline btn-sm btn-quick-edit" data-field="about">&#9998; Edit</button>` : ''}
                   </div>
-                  <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                  <p id="display-about" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
                     ${employee.about || 'No description provided.'}
                   </p>
                 </div>
@@ -105,8 +108,9 @@ export class ProfileViewComponent {
                 <div class="resume-section-box">
                   <div class="section-box-header">
                     <span class="section-box-title">&#10084;&#65039; What I love about my job</span>
+                    ${canEdit ? `<button class="btn btn-outline btn-sm btn-quick-edit" data-field="jobLove">&#9998; Edit</button>` : ''}
                   </div>
-                  <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                  <p id="display-jobLove" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
                     ${employee.jobLove || 'Collaborating with great minds.'}
                   </p>
                 </div>
@@ -114,8 +118,9 @@ export class ProfileViewComponent {
                 <div class="resume-section-box">
                   <div class="section-box-header">
                     <span class="section-box-title">&#127912; My interests and hobbies</span>
+                    ${canEdit ? `<button class="btn btn-outline btn-sm btn-quick-edit" data-field="hobbies">&#9998; Edit</button>` : ''}
                   </div>
-                  <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                  <p id="display-hobbies" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
                     ${employee.hobbies || 'Continuous learning and technology.'}
                   </p>
                 </div>
@@ -125,9 +130,9 @@ export class ProfileViewComponent {
                 <div class="resume-section-box">
                   <div class="section-box-header">
                     <span class="section-box-title">&#9889; Skills</span>
-                    ${isAdmin || isOwnProfile ? `<button id="btn-add-skill" class="btn btn-outline btn-sm">+ Add Skill</button>` : ''}
+                    ${canEdit ? `<button id="btn-add-skill" class="btn btn-outline btn-sm">+ Add Skill</button>` : ''}
                   </div>
-                  <div class="tag-cloud">
+                  <div class="tag-cloud" id="skills-cloud">
                     ${(employee.skills || []).map(skill => `<span class="tag-chip">${skill}</span>`).join('')}
                   </div>
                 </div>
@@ -135,12 +140,12 @@ export class ProfileViewComponent {
                 <div class="resume-section-box">
                   <div class="section-box-header">
                     <span class="section-box-title">&#127891; Certifications</span>
-                    ${isAdmin || isOwnProfile ? `<button id="btn-add-cert" class="btn btn-outline btn-sm">+ Add Certification</button>` : ''}
+                    ${canEdit ? `<button id="btn-add-cert" class="btn btn-outline btn-sm">+ Add Certification</button>` : ''}
                   </div>
-                  <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                  <div style="display: flex; flex-direction: column; gap: 0.5rem;" id="cert-list">
                     ${(employee.certifications || []).map(cert => `
-                      <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-primary); padding: 0.35rem 0.5rem; background: var(--bg-surface); border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-                        &#10003; ${cert}
+                      <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-primary); padding: 0.4rem 0.6rem; background: var(--bg-surface); border-radius: var(--radius-sm); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between;">
+                        <span>&#10003; ${cert}</span>
                       </div>
                     `).join('')}
                   </div>
@@ -160,7 +165,7 @@ export class ProfileViewComponent {
                 </div>
                 <div class="form-group">
                   <label class="form-label">Residing Address</label>
-                  <input type="text" id="edit-address" class="form-input" value="${employee.privateInfo?.address || ''}" ${(!isAdmin && !isOwnProfile) ? 'disabled' : ''} />
+                  <input type="text" id="edit-address" class="form-input" value="${employee.privateInfo?.address || ''}" ${(!canEdit) ? 'disabled' : ''} />
                 </div>
                 <div class="form-group">
                   <label class="form-label">Nationality</label>
@@ -168,7 +173,11 @@ export class ProfileViewComponent {
                 </div>
                 <div class="form-group">
                   <label class="form-label">Personal Email</label>
-                  <input type="email" id="edit-personal-email" class="form-input" value="${employee.privateInfo?.personalEmail || ''}" ${(!isAdmin && !isOwnProfile) ? 'disabled' : ''} />
+                  <input type="email" id="edit-personal-email" class="form-input" value="${employee.privateInfo?.personalEmail || ''}" ${(!canEdit) ? 'disabled' : ''} />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Contact Phone</label>
+                  <input type="tel" id="edit-phone" class="form-input" value="${employee.phone || ''}" ${(!canEdit) ? 'disabled' : ''} />
                 </div>
                 <div class="form-group">
                   <label class="form-label">Gender</label>
@@ -184,15 +193,15 @@ export class ProfileViewComponent {
                 <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 1rem; color: var(--primary);">Bank & Regulatory Details</h4>
                 <div class="form-group">
                   <label class="form-label">Bank Name</label>
-                  <input type="text" class="form-input" value="${employee.privateInfo?.bankName || 'HDFC Bank'}" disabled />
+                  <input type="text" id="edit-bank-name" class="form-input" value="${employee.privateInfo?.bankName || 'HDFC Bank'}" ${!isAdmin ? 'disabled' : ''} />
                 </div>
                 <div class="form-group">
                   <label class="form-label">Account Number</label>
-                  <input type="text" class="form-input" value="${employee.privateInfo?.accountNumber || '••••••••••'}" disabled />
+                  <input type="text" id="edit-account-num" class="form-input" value="${employee.privateInfo?.accountNumber || '••••••••••'}" ${!isAdmin ? 'disabled' : ''} />
                 </div>
                 <div class="form-group">
                   <label class="form-label">IFSC Code</label>
-                  <input type="text" class="form-input" value="${employee.privateInfo?.ifscCode || 'HDFC0001234'}" disabled />
+                  <input type="text" id="edit-ifsc" class="form-input" value="${employee.privateInfo?.ifscCode || 'HDFC0001234'}" ${!isAdmin ? 'disabled' : ''} />
                 </div>
                 <div class="form-group">
                   <label class="form-label">PAN Number</label>
@@ -209,7 +218,7 @@ export class ProfileViewComponent {
               </div>
             </div>
 
-            ${(isAdmin || isOwnProfile) ? `
+            ${canEdit ? `
               <div style="margin-top: 1.5rem; text-align: right;">
                 <button id="btn-save-private-info" class="btn btn-primary">Save Profile Changes</button>
               </div>
@@ -244,7 +253,7 @@ export class ProfileViewComponent {
               </div>
 
               <!-- Interactive Dynamic Wage Modifier -->
-              <div style="background: var(--bg-subtle); padding: 1.25rem; border-radius: var(--radius-md); margin-bottom: 2rem; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+              <div style="background: var(--bg-subtle); padding: 1.25rem; border-radius: var(--radius-md); margin-bottom: 2rem; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
                 <div>
                   <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary);">Update Defined Base Monthly Wage</div>
                   <div style="font-size: 0.8rem; color: var(--text-muted);">All salary components, allowances and PF contributions will dynamically recalculate.</div>
@@ -358,6 +367,9 @@ export class ProfileViewComponent {
   }
 
   static attachEvents() {
+    const state = store.getState();
+    const employee = state.employees.find(e => e.id === state.selectedEmployeeId) || state.currentUser;
+
     // Back to grid
     const backBtn = document.getElementById('btn-back-to-grid');
     if (backBtn) {
@@ -374,18 +386,72 @@ export class ProfileViewComponent {
       });
     });
 
+    // Avatar Edit prompt
+    const avatarBtn = document.getElementById('btn-edit-avatar');
+    if (avatarBtn) {
+      avatarBtn.addEventListener('click', () => {
+        const newUrl = prompt('Enter new Profile Picture / Avatar Image URL:', employee.avatar);
+        if (newUrl && newUrl.trim()) {
+          EmployeeService.updateEmployeeProfile(employee.id, { avatar: newUrl.trim() }, true);
+        }
+      });
+    }
+
+    // Quick Edit for About / JobLove / Hobbies
+    document.querySelectorAll('.btn-quick-edit').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const field = btn.getAttribute('data-field');
+        const currentVal = employee[field] || '';
+        const newVal = prompt(`Update ${field === 'jobLove' ? 'What I love about my job' : field}:`, currentVal);
+        if (newVal !== null) {
+          EmployeeService.updateEmployeeProfile(employee.id, { [field]: newVal.trim() }, true);
+        }
+      });
+    });
+
+    // Add Skill prompt
+    const addSkillBtn = document.getElementById('btn-add-skill');
+    if (addSkillBtn) {
+      addSkillBtn.addEventListener('click', () => {
+        const skill = prompt('Enter new Skill name (e.g. React, Python, Payroll Analysis):');
+        if (skill && skill.trim()) {
+          const currentSkills = employee.skills || [];
+          if (!currentSkills.includes(skill.trim())) {
+            EmployeeService.updateEmployeeProfile(employee.id, {
+              skills: [...currentSkills, skill.trim()]
+            }, true);
+          }
+        }
+      });
+    }
+
+    // Add Certification prompt
+    const addCertBtn = document.getElementById('btn-add-cert');
+    if (addCertBtn) {
+      addCertBtn.addEventListener('click', () => {
+        const cert = prompt('Enter new Certification title:');
+        if (cert && cert.trim()) {
+          const currentCerts = employee.certifications || [];
+          EmployeeService.updateEmployeeProfile(employee.id, {
+            certifications: [...currentCerts, cert.trim()]
+          }, true);
+        }
+      });
+    }
+
     // Save Private Info
     const savePrivateBtn = document.getElementById('btn-save-private-info');
     if (savePrivateBtn) {
       savePrivateBtn.addEventListener('click', () => {
-        const state = store.getState();
         const address = document.getElementById('edit-address')?.value;
         const personalEmail = document.getElementById('edit-personal-email')?.value;
+        const phone = document.getElementById('edit-phone')?.value;
         const isAdmin = state.currentUser?.role === 'admin';
 
-        EmployeeService.updateEmployeeProfile(state.selectedEmployeeId, {
+        EmployeeService.updateEmployeeProfile(employee.id, {
           address,
-          personalEmail
+          personalEmail,
+          phone
         }, isAdmin);
       });
     }
@@ -394,9 +460,8 @@ export class ProfileViewComponent {
     const recalcBtn = document.getElementById('btn-recalculate-salary');
     if (recalcBtn) {
       recalcBtn.addEventListener('click', () => {
-        const state = store.getState();
         const newWage = Number(document.getElementById('input-modify-wage')?.value);
-        SalaryService.updateEmployeeSalary(store, state.selectedEmployeeId, newWage);
+        SalaryService.updateEmployeeSalary(store, employee.id, newWage);
       });
     }
   }
