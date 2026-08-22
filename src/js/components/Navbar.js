@@ -89,4 +89,17 @@ export class NavbarComponent {
 
   static attachEvents() {
     // Navigation links
-    document.querySelectorAll('[data-nav]').forEach(btn => {
+    document.querySelectorAll('[data-nav]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const view = e.currentTarget.getAttribute('data-nav');
+        store.setState({ activeView: view }, 'nav_change');
+      });
+    });
+
+    // Systray Clock Toggle
+    const clockBtn = document.getElementById('systray-clock-btn');
+    if (clockBtn) {
+      clockBtn.addEventListener('click', () => {
+        const state = store.getState();
+        if (state.checkInState.isCheckedIn) {
+          AttendanceService.checkOut(state.currentUser.id);
