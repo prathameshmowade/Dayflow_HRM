@@ -65,4 +65,11 @@ export class AuthService {
         };
       }
     }
-
+
+    // Set authenticated session and matching company in store
+    store.setState({
+      company: matchedCompany,
+      currentUser: user,
+      activeView: 'employees',
+      selectedEmployeeId: user.id
+    }, 'auth_login');
