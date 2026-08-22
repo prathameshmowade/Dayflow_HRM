@@ -200,4 +200,12 @@ export class AuthService {
       if (emp.id === employeeId) {
         return { ...emp, password: newPassword };
       }
-      return emp;
+      return emp;
+    });
+
+    const updatedCurrentUser = state.currentUser && state.currentUser.id === employeeId
+      ? { ...state.currentUser, password: newPassword }
+      : state.currentUser;
+
+    store.setState({
+      employees: updatedEmployees,
