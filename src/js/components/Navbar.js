@@ -141,4 +141,16 @@ export class NavbarComponent {
       changePassBtn.addEventListener('click', () => {
         if (dropdown) dropdown.classList.remove('active');
         ChangePasswordModalComponent.open();
-      });
+      });
+    }
+
+    // Logout
+    const logoutBtn = document.getElementById('dropdown-logout');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        AuthService.logout();
+      });
+    }
+  }
+}
+
