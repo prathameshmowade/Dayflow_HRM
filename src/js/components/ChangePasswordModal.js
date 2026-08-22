@@ -33,4 +33,22 @@ export class ChangePasswordModalComponent {
                 <span id="change-password-alert-icon">&#9888;</span>
                 <span id="change-password-alert-msg"></span>
               </div>
-
+
+              <!-- Current Password -->
+              <div class="form-group">
+                <label class="form-label" for="cp-current-pass">Current Password *</label>
+                <div class="password-input-wrapper">
+                  <input 
+                    type="password" 
+                    id="cp-current-pass" 
+                    class="form-input password-field" 
+                    placeholder="Enter current password" 
+                    required 
+                    autocomplete="current-password"
+                  />
+                  <button type="button" class="password-toggle-btn" data-target="cp-current-pass" title="Toggle visibility" aria-label="Show or hide password">
+                    <span class="eye-icon">&#128065;</span>
+                  </button>
+                </div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">
+                  Default initial password: <code>${currentUser.loginId}@2026</code>
