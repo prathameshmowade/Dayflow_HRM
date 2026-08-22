@@ -115,4 +115,17 @@ export class NavbarComponent {
     if (userBtn && dropdown) {
       userBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        dropdown.classList.toggle('active');
+        dropdown.classList.toggle('active');
+      });
+
+      document.addEventListener('click', () => {
+        dropdown.classList.remove('active');
+      });
+    }
+
+    // My Profile trigger
+    const profileBtn = document.getElementById('dropdown-my-profile');
+    if (profileBtn) {
+      profileBtn.addEventListener('click', () => {
+        const state = store.getState();
+        store.setState({
