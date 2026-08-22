@@ -141,4 +141,22 @@ export class ChangePasswordModalComponent {
     modal.querySelectorAll('.password-field').forEach(input => {
       input.type = 'password';
     });
+
+    modal.classList.add('active');
+
+    // Auto-focus current password field
+    setTimeout(() => {
+      const currentInput = document.getElementById('cp-current-pass');
+      if (currentInput) currentInput.focus();
+    }, 100);
+  }
+
+  static close() {
+    const modal = document.getElementById('change-password-modal');
+    if (modal) modal.classList.remove('active');
+  }
+
+  static attachEvents() {
+    const modal = document.getElementById('change-password-modal');
+    if (!modal) return;
 
