@@ -298,4 +298,65 @@ const DEFAULT_EMPLOYEES = [
     manager: 'Yash Kapse',
     location: 'Nagpur, India',
     joiningDate: '2024-03-15',
-    joiningYear: 2024,
+    joiningYear: 2024,
+    serialNumber: 6,
+    status: 'present',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+    about: 'Passionate about accessibility, user research, and seamless design systems.',
+    jobLove: 'Crafting delight for everyday enterprise users.',
+    hobbies: 'Digital painting, typography, and swimming.',
+    skills: ['Figma', 'User Research', 'Design Systems', 'Prototyping', 'Accessibility'],
+    certifications: ['Nielsen Norman UX Master Certified'],
+    privateInfo: {
+      dob: '2001-07-22',
+      address: '102 Shankar Nagar, Nagpur, MH 440010',
+      nationality: 'Indian',
+      personalEmail: 'ananya.ux@gmail.com',
+      gender: 'Female',
+      maritalStatus: 'Single',
+      bankName: 'HDFC Bank',
+      accountNumber: '50100982347102',
+      ifscCode: 'HDFC0001234',
+      panNo: 'MNBVC3456T',
+      uanNo: '100432109876',
+      empCode: 'OI-006'
+    },
+    salary: {
+      monthWage: 45000,
+      yearlyWage: 540000,
+      workingDaysPerWeek: 5,
+      breakTimeHrs: 1,
+      basicSalary: 22500,
+      hra: 11250,
+      standardAllowance: 3750,
+      performanceBonus: 1875,
+      lta: 1875,
+      fixedAllowance: 3750,
+      pfEmployee: 2700,
+      pfEmployer: 2700,
+      professionalTax: 200
+    }
+  }
+];
+
+class Store {
+  constructor() {
+    this.subscribers = new Map();
+    this.state = this.loadState();
+  }
+
+  loadState() {
+    try {
+      const serialized = localStorage.getItem(STORAGE_KEY);
+      if (serialized) {
+        const parsed = JSON.parse(serialized);
+        if (parsed && Array.isArray(parsed.employees) && parsed.employees.length > 0) {
+          return parsed;
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to load state from localStorage:', e);
+    }
+
+    // Default initial seed state
+    const todayStr = new Date().toISOString().split('T')[0];
