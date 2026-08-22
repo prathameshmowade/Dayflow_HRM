@@ -1,4 +1,9 @@
 {
   "name": "dayflow-hrm",
   "version": "1.0.0",
-  "description": "Dayflow Human Resource Management System built for Team Pragati 2.0",
+  "description": "Dayflow Human Resource Management System built for Team Pragati 2.0",
+  "main": "src/js/app.js",
+  "scripts": {
+    "start": "npx serve . -l 3000",
+    "dev": "npx serve . -l 3000",
+    "serve": "python -m http.server 3000"
