@@ -170,4 +170,12 @@ export class AuthService {
 
     showToast(`Organization "${companyName}" successfully registered!`, 'success');
     return { success: true, company: newCompany, user: adminUser };
-  }
+  }
+
+  static changePassword(employeeId, currentPassword, newPassword) {
+    const state = store.getState();
+    const user = (state.employees || []).find(e => e.id === employeeId);
+    if (!user) {
+      showToast('User not found.', 'error');
+      return { success: false, message: 'User not found.' };
+    }
