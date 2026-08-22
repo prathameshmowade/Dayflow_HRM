@@ -128,4 +128,17 @@ export class NavbarComponent {
     if (profileBtn) {
       profileBtn.addEventListener('click', () => {
         const state = store.getState();
-        store.setState({
+        store.setState({
+          activeView: 'profile',
+          selectedEmployeeId: state.currentUser.id
+        }, 'view_profile');
+      });
+    }
+
+    // Change Password trigger
+    const changePassBtn = document.getElementById('dropdown-change-password');
+    if (changePassBtn) {
+      changePassBtn.addEventListener('click', () => {
+        if (dropdown) dropdown.classList.remove('active');
+        ChangePasswordModalComponent.open();
+      });
