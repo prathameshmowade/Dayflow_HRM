@@ -2,7 +2,7 @@
  * Central Reactive State Store with LocalStorage persistence
  */
 
-const STORAGE_KEY = 'dayflow_hrm_state_v1';
+const STORAGE_KEY = 'dayflow_hrm_state_v2';
 
 const DEFAULT_COMPANIES = [
   {
@@ -363,9 +363,9 @@ class Store {
     return {
       company: DEFAULT_COMPANY,
       employees: DEFAULT_EMPLOYEES,
-      currentUser: DEFAULT_EMPLOYEES[0], // Default logged-in user: Prathamesh (Admin)
-      activeView: 'employees', // 'employees' | 'attendance' | 'timeoff' | 'payroll' | 'profile'
-      selectedEmployeeId: 'emp_1',
+      currentUser: null, // No auto-login — visitors must sign in first
+      activeView: 'login', // Start on the login/signup page
+      selectedEmployeeId: null,
       attendanceRecords: [
         {
           id: 'att_1',
