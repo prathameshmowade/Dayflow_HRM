@@ -23,4 +23,17 @@ export class NavbarComponent {
             </a>
 
             <nav class="nav-links">
-              <button class="nav-item ${activeView === 'employees' ? 'active' : ''}" data-nav="employees">
+              <button class="nav-item ${activeView === 'employees' ? 'active' : ''}" data-nav="employees">
+                Employees
+              </button>
+              <button class="nav-item ${activeView === 'attendance' ? 'active' : ''}" data-nav="attendance">
+                Attendance
+              </button>
+              <button class="nav-item ${activeView === 'timeoff' ? 'active' : ''}" data-nav="timeoff">
+                Time Off
+              </button>
+              <button class="nav-item ${activeView === 'payroll' ? 'active' : ''}" data-nav="payroll">
+                Payroll
+              </button>
+            </nav>
+          </div>
