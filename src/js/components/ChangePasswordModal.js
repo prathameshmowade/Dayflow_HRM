@@ -286,4 +286,22 @@ export class ChangePasswordModalComponent {
         const state = store.getState();
         const currentUser = state.currentUser;
         if (!currentUser) return;
-
+
+        const currentPass = document.getElementById('cp-current-pass')?.value || '';
+        const newPass = document.getElementById('cp-new-pass')?.value || '';
+        const confirmPass = document.getElementById('cp-confirm-pass')?.value || '';
+
+        if (!currentPass) {
+          showAlert('Please enter your current password.');
+          return;
+        }
+
+        if (newPass.length < 6) {
+          showAlert('New password must be at least 6 characters long.');
+          return;
+        }
+
+        if (newPass !== confirmPass) {
+          showAlert('New passwords do not match. Please re-check.');
+          return;
+        }
