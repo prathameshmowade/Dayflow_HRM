@@ -12,4 +12,12 @@ export class AuthService {
       emp.loginId?.toLowerCase() === cleanQuery ||
       emp.email?.toLowerCase() === cleanQuery ||
       emp.name?.toLowerCase() === cleanQuery ||
-      emp.firstName?.toLowerCase() === cleanQuery
+      emp.firstName?.toLowerCase() === cleanQuery
+    );
+
+    // 2. Fallback partial search if not found
+    if (!user && cleanQuery) {
+      user = (state.employees || []).find(emp => 
+        emp.loginId?.toLowerCase().includes(cleanQuery) ||
+        emp.email?.toLowerCase().includes(cleanQuery) ||
+        emp.name?.toLowerCase().includes(cleanQuery)
