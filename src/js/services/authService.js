@@ -155,4 +155,12 @@ export class AuthService {
     };
 
     const updatedCompanies = [
-      newCompany,
+      newCompany,
+      ...(state.companies || []).filter(c => c.code !== companyCode)
+    ];
+
+    store.setState({
+      companies: updatedCompanies,
+      company: newCompany,
+      employees: [adminUser, ...state.employees],
+      currentUser: adminUser,
