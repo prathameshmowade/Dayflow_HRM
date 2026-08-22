@@ -250,4 +250,22 @@ export class ChangePasswordModalComponent {
         matchStatus.style.display = 'none';
         return;
       }
-
+
+      matchStatus.style.display = 'block';
+      if (newPass === confirmPass) {
+        matchStatus.innerHTML = '<span style="color: #10b981; font-weight: 600;">&#10003; Passwords match</span>';
+      } else {
+        matchStatus.innerHTML = '<span style="color: #ef4444; font-weight: 600;">&#10007; Passwords do not match</span>';
+      }
+    }
+
+    if (confirmPassInput) {
+      confirmPassInput.addEventListener('input', checkPasswordMatch);
+    }
+
+    // Form submit handler
+    const form = document.getElementById('change-password-form');
+    const alertBox = document.getElementById('change-password-alert');
+    const alertMsg = document.getElementById('change-password-alert-msg');
+
+    function showAlert(msg) {
