@@ -214,4 +214,22 @@ export class ChangePasswordModalComponent {
           if (strengthMeter) strengthMeter.style.display = 'none';
           return;
         }
-
+
+        if (strengthMeter) strengthMeter.style.display = 'block';
+
+        let score = 0;
+        if (val.length >= 6) score++;
+        if (val.length >= 10) score++;
+        if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score++;
+        if (/[0-9]/.test(val) || /[^A-Za-z0-9]/.test(val)) score++;
+
+        const colors = ['#ef4444', '#f59e0b', '#3b82f6', '#10b981'];
+        const labels = ['Weak', 'Fair', 'Good', 'Strong'];
+
+        [b1, b2, b3, b4].forEach((bar, idx) => {
+          if (bar) {
+            bar.style.background = idx < score ? colors[score - 1] : '#e2e8f0';
+          }
+        });
+
+        if (strengthLabel) {
