@@ -8,8 +8,8 @@
 | Segment | Time | Duration | Feature |
 |---------|------|----------|---------|
 | 1 | 0:00 – 0:15 | 15s | Intro & Landing Page |
-| 2 | 0:15 – 0:40 | 25s | Sign In with Demo Account |
-| 3 | 0:40 – 1:05 | 25s | Employee Dashboard & Directory |
+| 2 | 0:15 – 0:35 | 20s | Sign In with Demo Account |
+| 3 | 0:35 – 1:05 | 30s | Admin Visual Analytics & Interactive Charts + Directory |
 | 4 | 1:05 – 1:30 | 25s | Employee Profile (Resume + Private Info) |
 | 5 | 1:30 – 1:50 | 20s | Attendance Module |
 | 6 | 1:50 – 2:05 | 15s | Time Off / Leave Management |
