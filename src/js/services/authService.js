@@ -238,4 +238,11 @@ export class AuthService {
         name: 'Odoo India',
         code: 'OI',
         logoText: 'dayflow',
-        tagline: 'Human Resource Management System',
+        tagline: 'Human Resource Management System',
+        currency: 'INR'
+      };
+    }
+
+    store.setState({
+      company: matchedCompany || state.company,
+      currentUser: targetUser,
