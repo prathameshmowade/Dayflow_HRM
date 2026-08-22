@@ -87,4 +87,22 @@ export class ChangePasswordModalComponent {
                 </div>
               </div>
 
-              <!-- Confirm New Password -->
+              <!-- Confirm New Password -->
+              <div class="form-group" style="margin-bottom: 0.5rem;">
+                <label class="form-label" for="cp-confirm-pass">Confirm New Password *</label>
+                <div class="password-input-wrapper">
+                  <input 
+                    type="password" 
+                    id="cp-confirm-pass" 
+                    class="form-input password-field" 
+                    placeholder="Re-enter new password" 
+                    required 
+                    minlength="6"
+                    autocomplete="new-password"
+                  />
+                  <button type="button" class="password-toggle-btn" data-target="cp-confirm-pass" title="Toggle visibility" aria-label="Show or hide password">
+                    <span class="eye-icon">&#128065;</span>
+                  </button>
+                </div>
+                <div id="cp-match-status" style="font-size: 0.75rem; margin-top: 0.35rem; display: none;"></div>
+              </div>
