@@ -1,5 +1,6 @@
 import { store } from '../state/store.js';
 import { Icons } from '../utils/icons.js';
+import { AdminChartsComponent } from './AdminCharts.js';
 
 export class EmployeeGridComponent {
   static searchQuery = '';
@@ -36,10 +37,13 @@ export class EmployeeGridComponent {
 
     return `
       <div class="container dashboard-container">
+        <!-- Admin Visual Analytics & Interactive Charts -->
+        ${isAdmin ? AdminChartsComponent.render(targetEmployees, state.leaveRequests, state.attendanceRecords) : ''}
+
         <div class="dashboard-toolbar">
           <div class="toolbar-left">
             <h1 style="font-size: 1.5rem; font-weight: 800; color: var(--text-primary); margin-right: 0.5rem;">
-              Employees
+              Employee Directory
             </h1>
             ${isAdmin ? `
               <button id="btn-new-employee" class="btn btn-primary btn-sm">
@@ -139,5 +143,8 @@ export class EmployeeGridComponent {
         if (modal) modal.classList.add('active');
       });
     }
+
+    // Attach Admin Charts interactions (click on legend to filter department)
+    AdminChartsComponent.attachEvents();
   }
 }
