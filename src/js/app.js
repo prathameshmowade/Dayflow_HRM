@@ -3,6 +3,7 @@ import { NavbarComponent } from './components/Navbar.js';
 import { AuthModalComponent } from './components/AuthModal.js';
 import { EmployeeGridComponent } from './components/EmployeeGrid.js';
 import { EmployeeModalComponent } from './components/EmployeeModal.js';
+import { ChangePasswordModalComponent } from './components/ChangePasswordModal.js';
 import { ProfileViewComponent } from './components/ProfileView.js';
 import { AttendanceViewComponent } from './components/AttendanceView.js';
 import { TimeOffViewComponent } from './components/TimeOffView.js';
@@ -61,6 +62,7 @@ class App {
         ${viewContent}
       </main>
       ${EmployeeModalComponent.render()}
+      ${ChangePasswordModalComponent.render()}
       
       <!-- Footer -->
       <footer style="border-top: 1px solid var(--border-color); padding: 1.5rem 0; background: var(--bg-surface); margin-top: auto; text-align: center; font-size: 0.85rem; color: var(--text-muted);">
@@ -78,6 +80,7 @@ class App {
     // Attach Component Event Listeners
     NavbarComponent.attachEvents();
     EmployeeModalComponent.attachEvents();
+    ChangePasswordModalComponent.attachEvents();
 
     if (activeView === 'employees') {
       EmployeeGridComponent.attachEvents();
@@ -93,7 +96,10 @@ class App {
   }
 }
 
-// Bootstrap Dayflow HRM application on DOM content loaded
-document.addEventListener('DOMContentLoaded', () => {
+// Bootstrap Dayflow HRM application immediately or on DOM ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => new App());
+} else {
   new App();
-});
+}
+
