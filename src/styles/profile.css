@@ -73,7 +73,8 @@
 .profile-meta-label {
   font-weight: 600;
   color: var(--text-muted);
-  width: 75px;
+  min-width: 95px;
+  flex-shrink: 0;
 }
 
 .profile-org-meta {
