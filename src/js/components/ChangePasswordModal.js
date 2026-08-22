@@ -268,4 +268,22 @@ export class ChangePasswordModalComponent {
     const alertBox = document.getElementById('change-password-alert');
     const alertMsg = document.getElementById('change-password-alert-msg');
 
-    function showAlert(msg) {
+    function showAlert(msg) {
+      if (!alertBox || !alertMsg) return;
+      alertMsg.textContent = msg;
+      alertBox.style.display = 'flex';
+    }
+
+    function hideAlert() {
+      if (alertBox) alertBox.style.display = 'none';
+    }
+
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        hideAlert();
+
+        const state = store.getState();
+        const currentUser = state.currentUser;
+        if (!currentUser) return;
+
