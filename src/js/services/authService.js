@@ -27,4 +27,12 @@ export class AuthService {
     // 3. Fallback to first employee (Admin) if still not found
     if (!user) {
       user = (state.employees && state.employees.length > 0) 
-        ? state.employees[0] 
+        ? state.employees[0] 
+        : {
+            id: 'emp_1',
+            loginId: 'OIPRMO20220001',
+            companyCode: 'OI',
+            companyName: 'Odoo India',
+            name: 'Prathamesh Mowade',
+            role: 'admin',
+            designation: 'HR Lead & Architect',
