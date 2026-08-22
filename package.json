@@ -15,4 +15,7 @@
     "employee-management",
     "attendance",
     "payroll"
-  ],
+  ],
+  "author": "Team Pragati 2.0",
+  "license": "MIT"
+}
