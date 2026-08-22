@@ -49,4 +49,17 @@ export class NavbarComponent {
               </div>
               <button id="systray-clock-btn" class="btn btn-sm btn-clock ${isCheckedIn ? 'btn-clock-out' : 'btn-clock-in'}">
                 ${isCheckedIn ? 'Check Out &rarr;' : 'Check IN &rarr;'}
-              </button>
+              </button>
+            </div>
+
+            <!-- Profile Dropdown -->
+            <div class="user-menu-wrapper">
+              <button id="nav-user-btn" class="user-avatar-btn" aria-haspopup="true">
+                <img src="${currentUser.avatar}" alt="${currentUser.name}" class="user-avatar-img" />
+                <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary);">${currentUser.firstName}</span>
+                <span style="font-size: 0.7rem; color: var(--text-muted);">&#9662;</span>
+              </button>
+
+              <div id="nav-user-dropdown" class="user-menu-dropdown">
+                <div class="dropdown-header">
+                  <div class="dropdown-user-name">${currentUser.name}</div>
