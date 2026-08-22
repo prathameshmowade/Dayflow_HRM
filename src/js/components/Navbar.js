@@ -75,4 +75,18 @@ export class NavbarComponent {
                   <span>&#128273;</span> Change Password
                 </button>
 
-                <div style="border-top: 1px solid var(--border-color); margin-top: 0.3rem;"></div>
+                <div style="border-top: 1px solid var(--border-color); margin-top: 0.3rem;"></div>
+                <button class="dropdown-item danger" id="dropdown-logout">
+                  <span>&#128682;</span> Log Out
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+    `;
+  }
+
+  static attachEvents() {
+    // Navigation links
+    document.querySelectorAll('[data-nav]').forEach(btn => {
