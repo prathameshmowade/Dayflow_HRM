@@ -359,4 +359,64 @@ class Store {
     }
 
     // Default initial seed state
-    const todayStr = new Date().toISOString().split('T')[0];
+    const todayStr = new Date().toISOString().split('T')[0];
+    return {
+      company: DEFAULT_COMPANY,
+      employees: DEFAULT_EMPLOYEES,
+      currentUser: DEFAULT_EMPLOYEES[0], // Default logged-in user: Prathamesh (Admin)
+      activeView: 'employees', // 'employees' | 'attendance' | 'timeoff' | 'payroll' | 'profile'
+      selectedEmployeeId: 'emp_1',
+      attendanceRecords: [
+        {
+          id: 'att_1',
+          employeeId: 'emp_1',
+          date: todayStr,
+          checkIn: '09:30',
+          checkOut: '18:30',
+          workHours: '09:00',
+          extraHours: '01:00',
+          status: 'present'
+        },
+        {
+          id: 'att_2',
+          employeeId: 'emp_2',
+          date: todayStr,
+          checkIn: '10:00',
+          checkOut: '19:00',
+          workHours: '09:00',
+          extraHours: '01:00',
+          status: 'present'
+        },
+        {
+          id: 'att_3',
+          employeeId: 'emp_4',
+          date: todayStr,
+          checkIn: '09:15',
+          checkOut: '17:45',
+          workHours: '08:30',
+          extraHours: '00:30',
+          status: 'present'
+        },
+        {
+          id: 'att_4',
+          employeeId: 'emp_6',
+          date: todayStr,
+          checkIn: '09:45',
+          checkOut: '18:15',
+          workHours: '08:30',
+          extraHours: '00:30',
+          status: 'present'
+        }
+      ],
+      leaveRequests: [
+        {
+          id: 'leave_1',
+          employeeId: 'emp_3',
+          employeeName: 'Dhanshree Bhorkar',
+          type: 'Paid Leave',
+          startDate: todayStr,
+          endDate: todayStr,
+          days: 1,
+          reason: 'Family event and personal commitments',
+          status: 'approved',
+          adminComment: 'Approved by HR Lead'
