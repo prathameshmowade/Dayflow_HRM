@@ -72,4 +72,12 @@ export class AuthService {
       currentUser: user,
       activeView: 'employees',
       selectedEmployeeId: user.id
-    }, 'auth_login');
+    }, 'auth_login');
+
+    showToast(`Welcome back to ${matchedCompany.name}, ${user.name}!`, 'success');
+    return { success: true, user, company: matchedCompany };
+  }
+
+  static signupCompany({ companyName, name, email, phone, password, logoUrl }) {
+    const state = store.getState();
+    const [firstName, ...rest] = (name || 'Admin User').trim().split(' ');
