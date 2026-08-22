@@ -1,0 +1,86 @@
+/* Attendance Module Stylesheet */
+.attendance-container {
+  padding: 2rem 0;
+}
+
+.attendance-summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.att-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.att-card-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.att-card-val {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-top: 0.25rem;
+}
+
+.attendance-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.date-navigator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.25rem;
+}
+
+.date-nav-btn {
+  padding: 0.4rem 0.65rem;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.date-nav-btn:hover {
+  background: var(--bg-subtle);
+  color: var(--primary);
+}
+
+.current-date-badge {
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0 0.5rem;
+  color: var(--text-primary);
+}
+
+.hours-pill {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-subtle);
+  font-size: 0.85rem;
+}
+
+.hours-overtime {
+  color: var(--status-present);
+  background: var(--status-present-bg);
+}
