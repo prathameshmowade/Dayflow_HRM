@@ -130,4 +130,38 @@ export class AuthModalComponent {
         </div>
       </form>
     `;
-  }
+  }
+
+  static attachEvents() {
+    // Toggle sign in / sign up
+    const toSignup = document.getElementById('toggle-to-signup');
+    if (toSignup) {
+      toSignup.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.mode = 'signup';
+        store.emit('auth_mode_change');
+      });
+    }
+
+    const toSignin = document.getElementById('toggle-to-signin');
+    if (toSignin) {
+      toSignin.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.mode = 'signin';
+        store.emit('auth_mode_change');
+      });
+    }
+
+    // Demo autofills
+    document.querySelectorAll('.demo-autofill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const login = btn.getAttribute('data-login');
+        const pass = btn.getAttribute('data-pass');
+        const loginInput = document.getElementById('signin-login-id');
+        const passInput = document.getElementById('signin-password');
+        if (loginInput) loginInput.value = login;
+        if (passInput) passInput.value = pass;
+      });
+    });
+
+    // Handle signin submission
