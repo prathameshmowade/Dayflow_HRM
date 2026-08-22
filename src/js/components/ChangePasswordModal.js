@@ -105,4 +105,22 @@ export class ChangePasswordModalComponent {
                   </button>
                 </div>
                 <div id="cp-match-status" style="font-size: 0.75rem; margin-top: 0.35rem; display: none;"></div>
-              </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline modal-close-btn">Cancel</button>
+              <button type="submit" id="btn-submit-change-password" class="btn btn-primary">
+                Update Password &rarr;
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    `;
+  }
+
+  static open() {
+    const modal = document.getElementById('change-password-modal');
+    if (!modal) return;
+
