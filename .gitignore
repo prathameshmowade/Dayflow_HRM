@@ -1,0 +1,15 @@
+# Local & Plan Files
+PROJECT_PLAN.md
+scratch/
+.system_generated/
+
+# Dependencies & Build
+node_modules/
+dist/
+.cache/
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
