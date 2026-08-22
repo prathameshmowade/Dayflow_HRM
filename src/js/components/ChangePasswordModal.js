@@ -51,4 +51,22 @@ export class ChangePasswordModalComponent {
                   </button>
                 </div>
                 <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">
-                  Default initial password: <code>${currentUser.loginId}@2026</code>
+                  Default initial password: <code>${currentUser.loginId}@2026</code>
+                </div>
+              </div>
+
+              <!-- New Password -->
+              <div class="form-group">
+                <label class="form-label" for="cp-new-pass">New Password *</label>
+                <div class="password-input-wrapper">
+                  <input 
+                    type="password" 
+                    id="cp-new-pass" 
+                    class="form-input password-field" 
+                    placeholder="Enter new password (min. 6 characters)" 
+                    required 
+                    minlength="6"
+                    autocomplete="new-password"
+                  />
+                  <button type="button" class="password-toggle-btn" data-target="cp-new-pass" title="Toggle visibility" aria-label="Show or hide password">
+                    <span class="eye-icon">&#128065;</span>
