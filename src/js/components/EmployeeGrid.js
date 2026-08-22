@@ -9,8 +9,17 @@ export class EmployeeGridComponent {
     const { employees, currentUser } = state;
     const isAdmin = currentUser && currentUser.role === 'admin';
 
-    // Filter employees
-    const filteredEmployees = employees.filter(emp => {
+    // Filter employees belonging to active company workspace
+    const activeCompanyCode = state.company?.code || 'OI';
+    const companyEmployees = employees.filter(emp => {
+      const empCompanyCode = emp.companyCode || emp.loginId?.substring(0, 2).toUpperCase() || 'OI';
+      return empCompanyCode === activeCompanyCode;
+    });
+
+    const targetEmployees = companyEmployees.length > 0 ? companyEmployees : employees;
+
+    // Filter employees by search and department
+    const filteredEmployees = targetEmployees.filter(emp => {
       const matchesSearch = !this.searchQuery || 
         emp.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
         emp.loginId.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
@@ -22,7 +31,7 @@ export class EmployeeGridComponent {
       return matchesSearch && matchesDept;
     });
 
-    const departments = ['all', ...new Set(employees.map(e => e.department))];
+    const departments = ['all', ...new Set(targetEmployees.map(e => e.department))];
 
     return `
       <div class="container dashboard-container">
