@@ -80,4 +80,11 @@ export class AuthService {
 
   static signupCompany({ companyName, name, email, phone, password, logoUrl }) {
     const state = store.getState();
-    const [firstName, ...rest] = (name || 'Admin User').trim().split(' ');
+    const [firstName, ...rest] = (name || 'Admin User').trim().split(' ');
+    const lastName = rest.join(' ') || 'Admin';
+    const currentYear = new Date().getFullYear();
+    const serial = 1;
+
+    const companyCode = (companyName || 'DF').replace(/[^a-zA-Z]/g, '').substring(0, 2).toUpperCase();
+    const loginId = generateEmployeeId(companyName, firstName, lastName, currentYear, serial);
+
