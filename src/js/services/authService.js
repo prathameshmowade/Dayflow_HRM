@@ -230,4 +230,12 @@ export class AuthService {
     const state = store.getState();
     const targetUser = state.employees.find(e => e.id === employeeId);
     if (!targetUser) return;
-
+
+    const userCompanyCode = targetUser.companyCode || targetUser.loginId?.substring(0, 2).toUpperCase() || 'OI';
+    let matchedCompany = (state.companies || []).find(c => c.code === userCompanyCode);
+    if (!matchedCompany && userCompanyCode === 'OI') {
+      matchedCompany = {
+        name: 'Odoo India',
+        code: 'OI',
+        logoText: 'dayflow',
+        tagline: 'Human Resource Management System',
