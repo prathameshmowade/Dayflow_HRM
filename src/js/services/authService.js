@@ -57,4 +57,12 @@ export class AuthService {
         };
       } else {
         matchedCompany = {
-          name: user.companyName || `${userCompanyCode} Enterprise`,
+          name: user.companyName || `${userCompanyCode} Enterprise`,
+          code: userCompanyCode,
+          logoText: 'dayflow',
+          tagline: 'Human Resource Management System',
+          currency: 'INR'
+        };
+      }
+    }
+
