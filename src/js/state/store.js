@@ -2,7 +2,7 @@
  * Central Reactive State Store with LocalStorage persistence
  */
 
-const STORAGE_KEY = 'dayflow_hrm_state_v2';
+const STORAGE_KEY = 'dayflow_hrm_state_v3';
 
 const DEFAULT_COMPANIES = [
   {
@@ -346,25 +346,18 @@ class Store {
   }
 
   loadState() {
+    // Clear legacy keys from previous versions to avoid stale sessions
     try {
-      const serialized = localStorage.getItem(STORAGE_KEY);
-      if (serialized) {
-        const parsed = JSON.parse(serialized);
-        if (parsed && Array.isArray(parsed.employees) && parsed.employees.length > 0) {
-          return parsed;
-        }
-      }
-    } catch (e) {
-      console.warn('Failed to load state from localStorage:', e);
-    }
+      localStorage.removeItem('dayflow_hrm_state_v1');
+      localStorage.removeItem('dayflow_hrm_state_v2');
+    } catch (e) {}
 
-    // Default initial seed state
     const todayStr = new Date().toISOString().split('T')[0];
-    return {
+    const defaultState = {
       company: DEFAULT_COMPANY,
       employees: DEFAULT_EMPLOYEES,
-      currentUser: null, // No auto-login — visitors must sign in first
-      activeView: 'login', // Start on the login/signup page
+      currentUser: null, // Always default to not logged in
+      activeView: 'login', // Always default to login page
       selectedEmployeeId: null,
       attendanceRecords: [
         {
@@ -440,6 +433,35 @@ class Store {
         timestamp: Date.now()
       }
     };
+
+    try {
+      const serialized = localStorage.getItem(STORAGE_KEY);
+      if (serialized) {
+        const parsed = JSON.parse(serialized);
+        if (parsed && Array.isArray(parsed.employees) && parsed.employees.length > 0) {
+          // Check for active session in the current tab/session
+          let sessionUser = null;
+          try {
+            const activeSessionId = sessionStorage.getItem('dayflow_active_session');
+            if (activeSessionId) {
+              sessionUser = parsed.employees.find(e => e.id === activeSessionId) || null;
+            }
+          } catch (e) {}
+
+          return {
+            ...defaultState,
+            ...parsed,
+            currentUser: sessionUser,
+            activeView: sessionUser ? (parsed.activeView && parsed.activeView !== 'login' ? parsed.activeView : 'employees') : 'login',
+            selectedEmployeeId: sessionUser ? sessionUser.id : null
+          };
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to load state from localStorage:', e);
+    }
+
+    return defaultState;
   }
 
   saveState() {

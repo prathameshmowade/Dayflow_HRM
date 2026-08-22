@@ -66,7 +66,11 @@ export class AuthService {
       }
     }
 
-    // Set authenticated session and matching company in store
+    // Set authenticated session in sessionStorage and matching company in store
+    try {
+      sessionStorage.setItem('dayflow_active_session', user.id);
+    } catch (e) {}
+
     store.setState({
       company: matchedCompany,
       currentUser: user,
@@ -159,6 +163,10 @@ export class AuthService {
       ...(state.companies || []).filter(c => c.code !== companyCode)
     ];
 
+    try {
+      sessionStorage.setItem('dayflow_active_session', adminUser.id);
+    } catch (e) {}
+
     store.setState({
       companies: updatedCompanies,
       company: newCompany,
@@ -217,6 +225,10 @@ export class AuthService {
   }
 
   static logout() {
+    try {
+      sessionStorage.removeItem('dayflow_active_session');
+    } catch (e) {}
+
     store.setState({
       currentUser: null,
       activeView: 'login',
@@ -242,6 +254,10 @@ export class AuthService {
         currency: 'INR'
       };
     }
+
+    try {
+      sessionStorage.setItem('dayflow_active_session', targetUser.id);
+    } catch (e) {}
 
     store.setState({
       company: matchedCompany || state.company,
