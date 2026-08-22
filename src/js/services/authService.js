@@ -193,4 +193,11 @@ export class AuthService {
 
     if (newPassword === currentActualPassword) {
       showToast('New password cannot be identical to your current password.', 'warning');
-      return { success: false, message: 'New password cannot be identical to current password.' };
+      return { success: false, message: 'New password cannot be identical to current password.' };
+    }
+
+    const updatedEmployees = (state.employees || []).map(emp => {
+      if (emp.id === employeeId) {
+        return { ...emp, password: newPassword };
+      }
+      return emp;
