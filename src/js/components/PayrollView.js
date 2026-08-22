@@ -1,6 +1,7 @@
 import { store } from '../state/store.js';
 import { PayrollService } from '../services/payrollService.js';
 import { formatCurrencyINR, formatDate } from '../utils/formatters.js';
+import { Icons } from '../utils/icons.js';
 
 export class PayrollViewComponent {
   static selectedMonth = new Date().getMonth() + 1;
@@ -28,8 +29,8 @@ export class PayrollViewComponent {
           </div>
 
           <div class="flex gap-2 items-center">
-            <button id="btn-print-payslip" class="btn btn-outline btn-sm">
-              <span>&#128438;</span> Print / Export Payslip
+            <button id="btn-print-payslip" class="btn btn-outline btn-sm" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+              ${Icons.printer(14)} Print / Export Payslip
             </button>
           </div>
         </div>

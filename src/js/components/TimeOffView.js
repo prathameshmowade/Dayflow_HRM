@@ -1,6 +1,8 @@
 import { store } from '../state/store.js';
 import { TimeOffService } from '../services/timeoffService.js';
 import { formatDate } from '../utils/formatters.js';
+import { showToast } from '../utils/notifications.js';
+import { Icons } from '../utils/icons.js';
 
 export class TimeOffViewComponent {
   static render() {
@@ -9,64 +11,64 @@ export class TimeOffViewComponent {
     if (!currentUser) return '';
 
     const isAdmin = currentUser.role === 'admin';
-    const pendingRequests = leaveRequests.filter(r => r.status === 'pending');
-    const myRequests = leaveRequests.filter(r => r.employeeId === currentUser.id);
+    const quota = TimeOffService.getLeaveQuota(currentUser.id);
+    const pendingRequests = TimeOffService.getPendingRequests();
+    const myRequests = TimeOffService.getEmployeeRequests(currentUser.id);
+    const displayRequests = isAdmin ? leaveRequests : myRequests;
 
     return `
       <div class="container timeoff-container">
-        <div style="margin-bottom: 2rem;">
+        <div style="margin-bottom: 1.5rem;">
           <h1 style="font-size: 1.5rem; font-weight: 800; color: var(--text-primary);">
-            Time Off & Leave Management
+            ${isAdmin ? 'Time Off & Leave Governance' : 'My Leave Management'}
           </h1>
           <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">
-            Submit time off requests and monitor approval workflows
+            ${isAdmin ? 'Review employee time-off applications and manage organization leave policies' : 'Apply for paid time off, sick leave, and track approval status'}
           </p>
         </div>
 
-        <div class="timeoff-layout-grid">
-          <!-- Left Column: Apply for Leave & Balance Chips -->
-          <div>
-            <div class="leave-balance-card" style="margin-bottom: 1.5rem;">
-              <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary);">Leave Quota Balance</h3>
-              <div class="leave-balance-grid">
-                <div class="leave-chip">
-                  <div class="leave-chip-count">14</div>
-                  <div class="leave-chip-label">Paid Leave</div>
-                </div>
-                <div class="leave-chip">
-                  <div class="leave-chip-count">7</div>
-                  <div class="leave-chip-label">Sick Leave</div>
-                </div>
-                <div class="leave-chip">
-                  <div class="leave-chip-count">&infin;</div>
-                  <div class="leave-chip-label">Unpaid Leave</div>
-                </div>
-              </div>
-            </div>
+        <!-- Quota Cards -->
+        <div class="timeoff-quota-grid">
+          <div class="quota-card">
+            <div class="quota-card-label">Paid Leave (Annual)</div>
+            <div class="quota-card-val" style="color: var(--primary);">${quota.paid.remaining} <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted);">/ ${quota.paid.total} Left</span></div>
+          </div>
+          <div class="quota-card">
+            <div class="quota-card-label">Sick Leave</div>
+            <div class="quota-card-val" style="color: var(--secondary);">${quota.sick.remaining} <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted);">/ ${quota.sick.total} Left</span></div>
+          </div>
+          <div class="quota-card">
+            <div class="quota-card-label">Casual Leave</div>
+            <div class="quota-card-val" style="color: #d97706;">${quota.casual.remaining} <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted);">/ ${quota.casual.total} Left</span></div>
+          </div>
+        </div>
 
-            <!-- Apply Leave Card -->
-            <div class="leave-balance-card">
-              <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--primary); margin-bottom: 1.25rem;">
+        <div class="timeoff-main-layout">
+          <!-- Left Column: Submit New Leave Request -->
+          <div>
+            <div class="timeoff-form-box">
+              <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--text-primary);">
                 Apply for Time Off
               </h3>
+
               <form id="apply-leave-form">
                 <div class="form-group">
                   <label class="form-label" for="leave-type">Leave Category *</label>
                   <select id="leave-type" class="form-select" required>
-                    <option value="Paid Leave">Paid Leave</option>
-                    <option value="Sick Leave">Sick Leave</option>
-                    <option value="Unpaid Leave">Unpaid Leave</option>
+                    <option value="Paid Leave">Paid Annual Leave</option>
+                    <option value="Sick Leave">Sick / Medical Leave</option>
+                    <option value="Casual Leave">Casual / Personal Leave</option>
                   </select>
                 </div>
 
-                <div class="flex gap-2">
+                <div class="flex gap-4">
                   <div class="form-group w-full">
                     <label class="form-label" for="leave-start">Start Date *</label>
-                    <input type="date" id="leave-start" class="form-input" required value="${new Date().toISOString().split('T')[0]}" />
+                    <input type="date" id="leave-start" class="form-input" required />
                   </div>
                   <div class="form-group w-full">
                     <label class="form-label" for="leave-end">End Date *</label>
-                    <input type="date" id="leave-end" class="form-input" required value="${new Date().toISOString().split('T')[0]}" />
+                    <input type="date" id="leave-end" class="form-input" required />
                   </div>
                 </div>
 
@@ -75,8 +77,8 @@ export class TimeOffViewComponent {
                   <textarea id="leave-reason" class="form-textarea" rows="3" placeholder="Briefly describe the reason for time off..." required></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-full" style="padding: 0.7rem;">
-                  Submit Leave Request &rarr;
+                <button type="submit" class="btn btn-primary w-full" style="padding: 0.7rem; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+                  Submit Leave Request ${Icons.arrowRight(14)}
                 </button>
               </form>
             </div>
@@ -89,7 +91,7 @@ export class TimeOffViewComponent {
               <div style="margin-bottom: 2rem;">
                 <div class="flex items-center justify-between" style="margin-bottom: 1rem;">
                   <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem;">
-                    <span>&#9203;</span> Pending Approvals Queue
+                    <span>${Icons.hourglass(16)}</span> Pending Approvals Queue
                     <span class="badge badge-pending">${pendingRequests.length}</span>
                   </h3>
                 </div>
@@ -109,17 +111,17 @@ export class TimeOffViewComponent {
                     </div>
 
                     <div class="approval-actions">
-                      <button class="btn btn-success btn-sm btn-approve-leave" data-leaveid="${req.id}">
-                        &#10003; Approve
+                      <button class="btn btn-success btn-sm btn-approve-leave" data-leaveid="${req.id}" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                        ${Icons.check(14)} Approve
                       </button>
-                      <button class="btn btn-danger btn-sm btn-reject-leave" data-leaveid="${req.id}">
-                        &#10005; Reject
+                      <button class="btn btn-danger btn-sm btn-reject-leave" data-leaveid="${req.id}" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                        ${Icons.x(14)} Reject
                       </button>
                     </div>
                   </div>
                 `).join('') : `
-                  <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
-                    &#10003; All leave requests have been reviewed and approved!
+                  <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+                    <span style="color: var(--status-present);">${Icons.checkCircle(16)}</span> All leave requests have been reviewed and approved!
                   </div>
                 `}
               </div>

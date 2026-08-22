@@ -2,6 +2,7 @@ import { store } from '../state/store.js';
 import { AuthService } from '../services/authService.js';
 import { AttendanceService } from '../services/attendanceService.js';
 import { ChangePasswordModalComponent } from './ChangePasswordModal.js';
+import { Icons } from '../utils/icons.js';
 
 export class NavbarComponent {
   static render() {
@@ -48,7 +49,7 @@ export class NavbarComponent {
                 </span>
               </div>
               <button id="systray-clock-btn" class="btn btn-sm btn-clock ${isCheckedIn ? 'btn-clock-out' : 'btn-clock-in'}">
-                ${isCheckedIn ? 'Check Out &rarr;' : 'Check IN &rarr;'}
+                ${isCheckedIn ? `Check Out ${Icons.arrowRight(13)}` : `Check IN ${Icons.arrowRight(13)}`}
               </button>
             </div>
 
@@ -57,7 +58,7 @@ export class NavbarComponent {
               <button id="nav-user-btn" class="user-avatar-btn" aria-haspopup="true">
                 <img src="${currentUser.avatar}" alt="${currentUser.name}" class="user-avatar-img" />
                 <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary);">${currentUser.firstName}</span>
-                <span style="font-size: 0.7rem; color: var(--text-muted);">&#9662;</span>
+                <span style="color: var(--text-muted); display: inline-flex; align-items: center;">${Icons.chevronDown(12)}</span>
               </button>
 
               <div id="nav-user-dropdown" class="user-menu-dropdown">
@@ -68,16 +69,16 @@ export class NavbarComponent {
                 </div>
 
                 <button class="dropdown-item" id="dropdown-my-profile">
-                  <span>&#128100;</span> My Profile
+                  ${Icons.user(15)} My Profile
                 </button>
 
                 <button class="dropdown-item" id="dropdown-change-password">
-                  <span>&#128273;</span> Change Password
+                  ${Icons.key(15)} Change Password
                 </button>
 
                 <div style="border-top: 1px solid var(--border-color); margin-top: 0.3rem;"></div>
                 <button class="dropdown-item danger" id="dropdown-logout">
-                  <span>&#128682;</span> Log Out
+                  ${Icons.logout(15)} Log Out
                 </button>
               </div>
             </div>

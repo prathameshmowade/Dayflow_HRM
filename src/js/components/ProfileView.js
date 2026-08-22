@@ -3,6 +3,7 @@ import { EmployeeService } from '../services/employeeService.js';
 import { SalaryService } from '../services/salaryService.js';
 import { formatCurrencyINR, formatDate } from '../utils/formatters.js';
 import { showToast } from '../utils/notifications.js';
+import { Icons } from '../utils/icons.js';
 
 export class ProfileViewComponent {
   static activeTab = 'resume'; // 'resume' | 'private' | 'salary'
@@ -23,10 +24,10 @@ export class ProfileViewComponent {
       <div class="container">
         <div style="margin-top: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
           <button id="btn-back-to-grid" class="btn btn-outline btn-sm">
-            &larr; Back to Employees
+            ${Icons.arrowLeft(15)} Back to Employees
           </button>
-          <div style="font-size: 0.85rem; color: var(--text-muted);">
-            Mode: <strong>${isAdmin ? 'Admin Full Access' : (isOwnProfile ? 'Employee Self-Service' : 'View-Only Mode')}</strong>
+          <div style="font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.35rem;">
+            ${isAdmin ? Icons.shieldCheck(15) : Icons.user(15)} Mode: <strong>${isAdmin ? 'Admin Full Access' : (isOwnProfile ? 'Employee Self-Service' : 'View-Only Mode')}</strong>
           </div>
         </div>
 
@@ -36,7 +37,7 @@ export class ProfileViewComponent {
             <div class="profile-avatar-container">
               <img src="${employee.avatar}" alt="${employee.name}" class="profile-avatar-large" id="profile-img-display" />
               ${canEdit ? `
-                <div class="profile-avatar-edit-badge" title="Change Avatar Image" id="btn-edit-avatar">&#9998;</div>
+                <div class="profile-avatar-edit-badge" title="Change Avatar Image" id="btn-edit-avatar">${Icons.edit(14)}</div>
               ` : ''}
             </div>
 
@@ -85,8 +86,8 @@ export class ProfileViewComponent {
               Private Info
             </button>
             ${isAdmin ? `
-              <button class="tab-btn ${this.activeTab === 'salary' ? 'active' : ''}" data-tab="salary" style="color: #b45309;">
-                &#128274; Salary Info (Admin Only)
+              <button class="tab-btn ${this.activeTab === 'salary' ? 'active' : ''}" data-tab="salary" style="color: #b45309; display: flex; align-items: center; gap: 0.4rem;">
+                ${Icons.lock(14)} Salary Info (Admin Only)
               </button>
             ` : ''}
           </div>
@@ -97,8 +98,8 @@ export class ProfileViewComponent {
               <div>
                 <div class="resume-section-box">
                   <div class="section-box-header">
-                    <span class="section-box-title">&#128221; About</span>
-                    ${canEdit ? `<button class="btn btn-outline btn-sm btn-quick-edit" data-field="about">&#9998; Edit</button>` : ''}
+                    <span class="section-box-title">${Icons.fileText(16)} About</span>
+                    ${canEdit ? `<button class="btn btn-outline btn-sm btn-quick-edit" data-field="about">${Icons.edit(13)} Edit</button>` : ''}
                   </div>
                   <p id="display-about" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
                     ${employee.about || 'No description provided.'}
@@ -107,8 +108,8 @@ export class ProfileViewComponent {
 
                 <div class="resume-section-box">
                   <div class="section-box-header">
-                    <span class="section-box-title">&#10084;&#65039; What I love about my job</span>
-                    ${canEdit ? `<button class="btn btn-outline btn-sm btn-quick-edit" data-field="jobLove">&#9998; Edit</button>` : ''}
+                    <span class="section-box-title">${Icons.heart(16)} What I love about my job</span>
+                    ${canEdit ? `<button class="btn btn-outline btn-sm btn-quick-edit" data-field="jobLove">${Icons.edit(13)} Edit</button>` : ''}
                   </div>
                   <p id="display-jobLove" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
                     ${employee.jobLove || 'Collaborating with great minds.'}
@@ -117,8 +118,8 @@ export class ProfileViewComponent {
 
                 <div class="resume-section-box">
                   <div class="section-box-header">
-                    <span class="section-box-title">&#127912; My interests and hobbies</span>
-                    ${canEdit ? `<button class="btn btn-outline btn-sm btn-quick-edit" data-field="hobbies">&#9998; Edit</button>` : ''}
+                    <span class="section-box-title">${Icons.compass(16)} My interests and hobbies</span>
+                    ${canEdit ? `<button class="btn btn-outline btn-sm btn-quick-edit" data-field="hobbies">${Icons.edit(13)} Edit</button>` : ''}
                   </div>
                   <p id="display-hobbies" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
                     ${employee.hobbies || 'Continuous learning and technology.'}
@@ -129,8 +130,8 @@ export class ProfileViewComponent {
               <div>
                 <div class="resume-section-box">
                   <div class="section-box-header">
-                    <span class="section-box-title">&#9889; Skills</span>
-                    ${canEdit ? `<button id="btn-add-skill" class="btn btn-outline btn-sm">+ Add Skill</button>` : ''}
+                    <span class="section-box-title">${Icons.zap(16)} Skills</span>
+                    ${canEdit ? `<button id="btn-add-skill" class="btn btn-outline btn-sm">${Icons.plus(13)} Add Skill</button>` : ''}
                   </div>
                   <div class="tag-cloud" id="skills-cloud">
                     ${(employee.skills || []).map(skill => `<span class="tag-chip">${skill}</span>`).join('')}
@@ -139,13 +140,14 @@ export class ProfileViewComponent {
 
                 <div class="resume-section-box">
                   <div class="section-box-header">
-                    <span class="section-box-title">&#127891; Certifications</span>
-                    ${canEdit ? `<button id="btn-add-cert" class="btn btn-outline btn-sm">+ Add Certification</button>` : ''}
+                    <span class="section-box-title">${Icons.award(16)} Certifications</span>
+                    ${canEdit ? `<button id="btn-add-cert" class="btn btn-outline btn-sm">${Icons.plus(13)} Add Certification</button>` : ''}
                   </div>
                   <div style="display: flex; flex-direction: column; gap: 0.5rem;" id="cert-list">
                     ${(employee.certifications || []).map(cert => `
-                      <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-primary); padding: 0.4rem 0.6rem; background: var(--bg-surface); border-radius: var(--radius-sm); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between;">
-                        <span>&#10003; ${cert}</span>
+                      <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-primary); padding: 0.4rem 0.6rem; background: var(--bg-surface); border-radius: var(--radius-sm); border: 1px solid var(--border-color); display: flex; align-items: center; gap: 0.4rem;">
+                        <span style="color: var(--status-present);">${Icons.checkCircle(14)}</span>
+                        <span>${cert}</span>
                       </div>
                     `).join('')}
                   </div>
@@ -229,7 +231,7 @@ export class ProfileViewComponent {
           ${isAdmin ? `
             <div id="tab-content-salary" class="${this.activeTab === 'salary' ? '' : 'hidden'}">
               <div class="salary-banner-admin-only">
-                <span>&#128274;</span> <strong>Admin Restricted Area:</strong> Salary Information is strictly confidential and managed exclusively by HR Administrators.
+                <span style="display: flex; align-items: center;">${Icons.lockShield(16)}</span> <strong>Admin Restricted Area:</strong> Salary Information is strictly confidential and managed exclusively by HR Administrators.
               </div>
 
               <!-- Top Metrics -->

@@ -1,5 +1,6 @@
 import { store } from '../state/store.js';
 import { AuthService } from '../services/authService.js';
+import { Icons } from '../utils/icons.js';
 
 export class ChangePasswordModalComponent {
   static render() {
@@ -13,8 +14,8 @@ export class ChangePasswordModalComponent {
         <div class="modal-card" style="max-width: 480px;">
           <div class="modal-header">
             <div class="flex items-center gap-3">
-              <div style="width: 40px; height: 40px; border-radius: 10px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: 700;">
-                &#128274;
+              <div style="width: 40px; height: 40px; border-radius: 10px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                ${Icons.lock(20)}
               </div>
               <div>
                 <h3 class="modal-title">Change Password</h3>
@@ -30,7 +31,7 @@ export class ChangePasswordModalComponent {
             <div class="modal-body">
               <!-- Error feedback container -->
               <div id="change-password-alert" class="hidden" style="padding: 0.75rem 1rem; border-radius: var(--radius-md); font-size: 0.85rem; margin-bottom: 1.2rem; background: #fee2e2; border: 1px solid #f87171; color: #b91c1c; display: none; align-items: center; gap: 0.5rem;">
-                <span id="change-password-alert-icon">&#9888;</span>
+                <span id="change-password-alert-icon" style="display: flex; align-items: center;">${Icons.alertTriangle(16)}</span>
                 <span id="change-password-alert-msg"></span>
               </div>
 
@@ -47,7 +48,7 @@ export class ChangePasswordModalComponent {
                     autocomplete="current-password"
                   />
                   <button type="button" class="password-toggle-btn" data-target="cp-current-pass" title="Toggle visibility" aria-label="Show or hide password">
-                    <span class="eye-icon">&#128065;</span>
+                    <span class="eye-icon">${Icons.eye(16)}</span>
                   </button>
                 </div>
                 <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">
@@ -69,7 +70,7 @@ export class ChangePasswordModalComponent {
                     autocomplete="new-password"
                   />
                   <button type="button" class="password-toggle-btn" data-target="cp-new-pass" title="Toggle visibility" aria-label="Show or hide password">
-                    <span class="eye-icon">&#128065;</span>
+                    <span class="eye-icon">${Icons.eye(16)}</span>
                   </button>
                 </div>
                 <!-- Password Strength Meter -->
@@ -101,7 +102,7 @@ export class ChangePasswordModalComponent {
                     autocomplete="new-password"
                   />
                   <button type="button" class="password-toggle-btn" data-target="cp-confirm-pass" title="Toggle visibility" aria-label="Show or hide password">
-                    <span class="eye-icon">&#128065;</span>
+                    <span class="eye-icon">${Icons.eye(16)}</span>
                   </button>
                 </div>
                 <div id="cp-match-status" style="font-size: 0.75rem; margin-top: 0.35rem; display: none;"></div>
@@ -111,7 +112,7 @@ export class ChangePasswordModalComponent {
             <div class="modal-footer">
               <button type="button" class="btn btn-outline modal-close-btn">Cancel</button>
               <button type="submit" id="btn-submit-change-password" class="btn btn-primary">
-                Update Password &rarr;
+                Update Password ${Icons.arrowRight(14)}
               </button>
             </div>
           </form>
@@ -140,6 +141,10 @@ export class ChangePasswordModalComponent {
     // Reset password inputs back to type="password"
     modal.querySelectorAll('.password-field').forEach(input => {
       input.type = 'password';
+    });
+    modal.querySelectorAll('.password-toggle-btn').forEach(btn => {
+      btn.innerHTML = `<span class="eye-icon">${Icons.eye(16)}</span>`;
+      btn.style.opacity = '0.7';
     });
 
     modal.classList.add('active');
@@ -185,11 +190,11 @@ export class ChangePasswordModalComponent {
 
         if (targetInput.type === 'password') {
           targetInput.type = 'text';
-          btn.innerHTML = '<span class="eye-icon">&#128064;</span>';
+          btn.innerHTML = `<span class="eye-icon">${Icons.eyeOff(16)}</span>`;
           btn.style.opacity = '1';
         } else {
           targetInput.type = 'password';
-          btn.innerHTML = '<span class="eye-icon">&#128065;</span>';
+          btn.innerHTML = `<span class="eye-icon">${Icons.eye(16)}</span>`;
           btn.style.opacity = '0.7';
         }
       });
@@ -253,9 +258,9 @@ export class ChangePasswordModalComponent {
 
       matchStatus.style.display = 'block';
       if (newPass === confirmPass) {
-        matchStatus.innerHTML = '<span style="color: #10b981; font-weight: 600;">&#10003; Passwords match</span>';
+        matchStatus.innerHTML = `<span style="color: #10b981; font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem;">${Icons.checkCircle(14)} Passwords match</span>`;
       } else {
-        matchStatus.innerHTML = '<span style="color: #ef4444; font-weight: 600;">&#10007; Passwords do not match</span>';
+        matchStatus.innerHTML = `<span style="color: #ef4444; font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem;">${Icons.xCircle(14)} Passwords do not match</span>`;
       }
     }
 

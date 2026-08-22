@@ -1,5 +1,6 @@
 import { AuthService } from '../services/authService.js';
 import { store } from '../state/store.js';
+import { Icons } from '../utils/icons.js';
 
 export class AuthModalComponent {
   static mode = 'signin'; // 'signin' | 'signup'
@@ -54,8 +55,8 @@ export class AuthModalComponent {
           <span style="color: var(--text-muted);">Default password: <code>[LoginID]@2026</code></span>
         </div>
 
-        <button type="submit" class="btn btn-primary w-full" style="padding: 0.75rem; font-size: 1rem;">
-          Sign In &rarr;
+        <button type="submit" class="btn btn-primary w-full" style="padding: 0.75rem; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+          Sign In ${Icons.arrowRight(15)}
         </button>
 
         <div style="text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-secondary);">
@@ -65,21 +66,21 @@ export class AuthModalComponent {
 
         <!-- Quick Demo Profiles Pill Container -->
         <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px dashed var(--border-color); text-align: center;">
-          <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">
-            ⚡ Quick Demo Accounts
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.35rem;">
+            ${Icons.zap(13)} Quick Demo Accounts
           </div>
           <div class="flex gap-2 justify-center" style="flex-wrap: wrap;">
             <button type="button" class="btn btn-outline btn-sm demo-autofill" data-login="OIPRMO20220001" data-pass="OIPRMO20220001@2026">
-              👑 Prathamesh (Admin)
+              ${Icons.crown(13)} Prathamesh (Admin)
             </button>
             <button type="button" class="btn btn-outline btn-sm demo-autofill" data-login="OIYAKA20230002" data-pass="OIYAKA20230002@2026">
-              💻 Yash (Employee)
+              ${Icons.code(13)} Yash (Employee)
             </button>
             <button type="button" class="btn btn-outline btn-sm demo-autofill" data-login="OIDHBH20230003" data-pass="OIDHBH20230003@2026">
-              📊 Dhanshree (Employee)
+              ${Icons.barChart(13)} Dhanshree (Employee)
             </button>
             <button type="button" class="btn btn-outline btn-sm demo-autofill" data-login="OINEMU20240004" data-pass="OINEMU20240004@2026">
-              📋 Neha (Employee)
+              ${Icons.checkSquare(13)} Neha (Employee)
             </button>
           </div>
         </div>
@@ -120,8 +121,8 @@ export class AuthModalComponent {
           <input type="password" id="signup-confirm-password" class="form-input" placeholder="••••••••" required />
         </div>
 
-        <button type="submit" class="btn btn-primary w-full" style="padding: 0.75rem; font-size: 1rem; margin-top: 0.5rem;">
-          Sign Up & Initialize Company &rarr;
+        <button type="submit" class="btn btn-primary w-full" style="padding: 0.75rem; font-size: 1rem; margin-top: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+          Sign Up & Initialize Company ${Icons.arrowRight(15)}
         </button>
 
         <div style="text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-secondary);">

@@ -1,4 +1,5 @@
 import { store } from '../state/store.js';
+import { Icons } from '../utils/icons.js';
 
 export class EmployeeGridComponent {
   static searchQuery = '';
@@ -42,7 +43,7 @@ export class EmployeeGridComponent {
             </h1>
             ${isAdmin ? `
               <button id="btn-new-employee" class="btn btn-primary btn-sm">
-                <span>+</span> New Employee
+                ${Icons.plus(14)} New Employee
               </button>
             ` : ''}
 
@@ -56,7 +57,7 @@ export class EmployeeGridComponent {
           </div>
 
           <div class="toolbar-search">
-            <span class="search-icon">&#128269;</span>
+            <span class="search-icon" style="display: flex; align-items: center;">${Icons.search(15)}</span>
             <input type="text" id="search-employee-input" placeholder="Search by name, ID or department..." value="${this.searchQuery}" />
           </div>
         </div>
@@ -64,15 +65,11 @@ export class EmployeeGridComponent {
         <!-- 3x3 Kanban Employee Grid -->
         <div class="employee-grid">
           ${filteredEmployees.map(emp => {
-            // Status Icon/Dot indicator per specifications:
-            // 🟢 Present: Green dot
-            // ✈️ Leave: Airplane icon
-            // 🟡 Absent: Yellow dot
             let statusBadge = '';
             if (emp.status === 'present') {
-              statusBadge = `<span class="status-dot dot-green" title="Present in office"></span>`;
+              statusBadge = `<span class="status-dot dot-green" title="Present"></span>`;
             } else if (emp.status === 'leave') {
-              statusBadge = `<span title="On approved leave" style="font-size: 1.1rem; line-height: 1;">✈️</span>`;
+              statusBadge = `<span class="status-dot dot-blue" title="On Leave"></span>`;
             } else {
               statusBadge = `<span class="status-dot dot-yellow" title="Absent"></span>`;
             }

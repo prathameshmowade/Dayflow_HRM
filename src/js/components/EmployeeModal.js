@@ -2,6 +2,7 @@ import { store } from '../state/store.js';
 import { EmployeeService } from '../services/employeeService.js';
 import { generateEmployeeId } from '../utils/idGenerator.js';
 import { formatCurrencyINR } from '../utils/formatters.js';
+import { Icons } from '../utils/icons.js';
 
 export class EmployeeModalComponent {
   static render() {
@@ -97,7 +98,9 @@ export class EmployeeModalComponent {
 
             <div class="modal-footer">
               <button type="button" class="btn btn-outline modal-close-btn">Cancel</button>
-              <button type="submit" class="btn btn-primary">Create & Issue Credentials &rarr;</button>
+              <button type="submit" class="btn btn-primary" style="display: flex; align-items: center; gap: 0.4rem;">
+                Create & Issue Credentials ${Icons.arrowRight(14)}
+              </button>
             </div>
           </form>
         </div>
