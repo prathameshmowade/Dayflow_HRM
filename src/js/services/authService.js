@@ -125,4 +125,12 @@ export class AuthService {
       certifications: ['Enterprise Management Specialist'],
       privateInfo: {
         dob: '1990-01-01',
-        address: 'HQ Office',
+        address: 'HQ Office',
+        nationality: 'Indian',
+        personalEmail: email,
+        gender: 'Not Specified',
+        maritalStatus: 'Single',
+        bankName: 'Primary Bank',
+        accountNumber: '100000000001',
+        ifscCode: 'BANK0000001',
+        panNo: 'ADMIN1234Z',
