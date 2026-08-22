@@ -163,4 +163,11 @@ export class AuthService {
       companies: updatedCompanies,
       company: newCompany,
       employees: [adminUser, ...state.employees],
-      currentUser: adminUser,
+      currentUser: adminUser,
+      activeView: 'employees',
+      selectedEmployeeId: adminUser.id
+    }, 'company_registered');
+
+    showToast(`Organization "${companyName}" successfully registered!`, 'success');
+    return { success: true, company: newCompany, user: adminUser };
+  }
