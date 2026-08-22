@@ -102,4 +102,17 @@ export class NavbarComponent {
       clockBtn.addEventListener('click', () => {
         const state = store.getState();
         if (state.checkInState.isCheckedIn) {
-          AttendanceService.checkOut(state.currentUser.id);
+          AttendanceService.checkOut(state.currentUser.id);
+        } else {
+          AttendanceService.checkIn(state.currentUser.id);
+        }
+      });
+    }
+
+    // User Dropdown toggle
+    const userBtn = document.getElementById('nav-user-btn');
+    const dropdown = document.getElementById('nav-user-dropdown');
+    if (userBtn && dropdown) {
+      userBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('active');
