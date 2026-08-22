@@ -30,4 +30,38 @@ export class AuthModalComponent {
           </div>
 
           <div class="auth-card-body">
-            ${isSignup ? this.renderSignupForm() : this.renderSigninForm()}
+            ${isSignup ? this.renderSignupForm() : this.renderSigninForm()}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  static renderSigninForm() {
+    return `
+      <form id="signin-form">
+        <div class="form-group">
+          <label class="form-label" for="signin-login-id">Login ID or Work Email</label>
+          <input type="text" id="signin-login-id" class="form-input" placeholder="e.g. OIPRMO20220001 or prathamesh@odooindia.com" required value="OIPRMO20220001" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="signin-password">Password</label>
+          <input type="password" id="signin-password" class="form-input" placeholder="••••••••" required value="OIPRMO20220001@2026" />
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; font-size: 0.8rem;">
+          <span style="color: var(--text-muted);">Default password: <code>[LoginID]@2026</code></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full" style="padding: 0.75rem; font-size: 1rem;">
+          Sign In &rarr;
+        </button>
+
+        <div style="text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-secondary);">
+          Don't have an Account? 
+          <a href="#" id="toggle-to-signup" style="font-weight: 700; color: var(--primary);">Sign Up</a>
+        </div>
+
+        <!-- Quick Demo Profiles Pill Container -->
+        <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px dashed var(--border-color); text-align: center;">
