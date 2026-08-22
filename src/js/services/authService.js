@@ -208,4 +208,11 @@ export class AuthService {
       : state.currentUser;
 
     store.setState({
-      employees: updatedEmployees,
+      employees: updatedEmployees,
+      currentUser: updatedCurrentUser
+    }, 'password_changed');
+
+    showToast('Password updated successfully!', 'success');
+    return { success: true };
+  }
+
