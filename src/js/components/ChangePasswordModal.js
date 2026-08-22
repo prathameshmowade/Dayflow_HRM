@@ -178,4 +178,22 @@ export class ChangePasswordModalComponent {
     // Password visibility toggle buttons
     modal.querySelectorAll('.password-toggle-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
-        e.preventDefault();
+        e.preventDefault();
+        const targetId = btn.getAttribute('data-target');
+        const targetInput = document.getElementById(targetId);
+        if (!targetInput) return;
+
+        if (targetInput.type === 'password') {
+          targetInput.type = 'text';
+          btn.innerHTML = '<span class="eye-icon">&#128064;</span>';
+          btn.style.opacity = '1';
+        } else {
+          targetInput.type = 'password';
+          btn.innerHTML = '<span class="eye-icon">&#128065;</span>';
+          btn.style.opacity = '0.7';
+        }
+      });
+    });
+
+    // Real-time strength calculator
+    const newPassInput = document.getElementById('cp-new-pass');
