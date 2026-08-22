@@ -62,4 +62,17 @@ export class NavbarComponent {
 
               <div id="nav-user-dropdown" class="user-menu-dropdown">
                 <div class="dropdown-header">
-                  <div class="dropdown-user-name">${currentUser.name}</div>
+                  <div class="dropdown-user-name">${currentUser.name}</div>
+                  <div class="dropdown-user-role">${currentUser.designation} &bull; <strong>${currentUser.role.toUpperCase()}</strong></div>
+                  <div style="font-size: 0.75rem; color: var(--primary); font-family: var(--font-mono); margin-top: 0.2rem;">${currentUser.loginId}</div>
+                </div>
+
+                <button class="dropdown-item" id="dropdown-my-profile">
+                  <span>&#128100;</span> My Profile
+                </button>
+
+                <button class="dropdown-item" id="dropdown-change-password">
+                  <span>&#128273;</span> Change Password
+                </button>
+
+                <div style="border-top: 1px solid var(--border-color); margin-top: 0.3rem;"></div>
