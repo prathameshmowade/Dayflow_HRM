@@ -223,4 +223,11 @@ export class AuthService {
       selectedEmployeeId: null
     }, 'auth_logout');
 
-    showToast('You have been logged out successfully.', 'info');
+    showToast('You have been logged out successfully.', 'info');
+  }
+
+  static switchUser(employeeId) {
+    const state = store.getState();
+    const targetUser = state.employees.find(e => e.id === employeeId);
+    if (!targetUser) return;
+
