@@ -333,4 +333,41 @@
   gap: 0.75rem;
   z-index: 10000;
   pointer-events: none;
-}
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.25rem;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  border-left: 4px solid var(--primary);
+  font-size: 0.9rem;
+  pointer-events: auto;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all var(--transition-normal);
+}
+
+.toast.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.toast.hide {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.toast-success { border-left-color: var(--status-present); }
+.toast-error { border-left-color: var(--status-offline); }
+.toast-warning { border-left-color: var(--status-absent); }
+.toast-info { border-left-color: var(--secondary); }
+
+.toast-close {
+  margin-left: auto;
+  font-size: 1.1rem;
+  color: var(--text-muted);
