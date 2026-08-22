@@ -164,4 +164,36 @@ export class AuthModalComponent {
       });
     });
 
-    // Handle signin submission
+    // Handle signin submission
+    const signinForm = document.getElementById('signin-form');
+    if (signinForm) {
+      signinForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const loginId = document.getElementById('signin-login-id').value;
+        const password = document.getElementById('signin-password').value;
+        AuthService.login(loginId, password);
+      });
+    }
+
+    // Handle signup submission
+    const signupForm = document.getElementById('signup-form');
+    if (signupForm) {
+      signupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const companyName = document.getElementById('signup-company').value;
+        const name = document.getElementById('signup-name').value;
+        const email = document.getElementById('signup-email').value;
+        const phone = document.getElementById('signup-phone').value;
+        const password = document.getElementById('signup-password').value;
+        const confirmPassword = document.getElementById('signup-confirm-password').value;
+
+        if (password !== confirmPassword) {
+          alert('Passwords do not match.');
+          return;
+        }
+
+        AuthService.signupCompany({ companyName, name, email, phone, password });
+      });
+    }
+  }
+}
