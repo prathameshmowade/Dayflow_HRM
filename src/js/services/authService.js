@@ -215,4 +215,12 @@ export class AuthService {
     showToast('Password updated successfully!', 'success');
     return { success: true };
   }
-
+
+  static logout() {
+    store.setState({
+      currentUser: null,
+      activeView: 'login',
+      selectedEmployeeId: null
+    }, 'auth_logout');
+
+    showToast('You have been logged out successfully.', 'info');
