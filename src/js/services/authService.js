@@ -117,4 +117,12 @@ export class AuthService {
       joiningYear: currentYear,
       serialNumber: serial,
       status: 'present',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+      about: `Founding HR administrator for ${companyName}.`,
+      jobLove: 'Building and scaling modern organization workflows.',
+      hobbies: 'Leadership, innovation, and continuous learning.',
+      skills: ['Company Administration', 'Strategic Planning', 'HR Governance'],
+      certifications: ['Enterprise Management Specialist'],
+      privateInfo: {
+        dob: '1990-01-01',
+        address: 'HQ Office',
