@@ -35,4 +35,11 @@ export class AuthService {
             companyName: 'Odoo India',
             name: 'Prathamesh Mowade',
             role: 'admin',
-            designation: 'HR Lead & Architect',
+            designation: 'HR Lead & Architect',
+            department: 'Human Resources',
+            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+            status: 'present'
+          };
+    }
+
+    // 4. Resolve exact company associated with this employee
